@@ -51,8 +51,9 @@ class AuthController extends Controller
     {
         $validated = $request->validate([
             'identifier' => ['required', 'string', function ($attr, $value, $fail) {
-                $isEmail = filter_var($value, FILTER_VALIDATE_EMAIL);
-                $isNim   = preg_match('/^\d{6,20}$/', $value);
+                $val     = trim($value);
+                $isEmail = filter_var($val, FILTER_VALIDATE_EMAIL);
+                $isNim   = preg_match('/^\d{6,20}$/', $val);
                 if (!$isEmail && !$isNim) {
                     $fail('Gunakan email yang valid atau NIM (6–20 digit).');
                 }
@@ -60,12 +61,14 @@ class AuthController extends Controller
             'password'   => ['required', 'string'],
         ]);
 
-        $identifier = $validated['identifier'];
-        $usedEmail  = filter_var($identifier, FILTER_VALIDATE_EMAIL) ? true : false;
+        $identifier = trim($validated['identifier']);
+        $lowerEmail = mb_strtolower($identifier);
 
-        $user = $usedEmail
-            ? User::where('email', $identifier)->first()
-            : User::where('nim', $identifier)->first();
+        // Cari user baik berdasarkan email (case-insensitive) maupun NIM
+        $user = User::where(function ($q) use ($lowerEmail, $identifier) {
+            $q->whereRaw('LOWER(email) = ?', [$lowerEmail])
+                ->orWhere('nim', $identifier);
+        })->first();
 
         if (!$user) {
             throw ValidationException::withMessages([
@@ -73,32 +76,24 @@ class AuthController extends Controller
             ]);
         }
 
-        $isAdmin = $user->role === 'admin';
-        $isMahasiswa = $user->role === 'mahasiswa';
-
-        if ($isAdmin && !$usedEmail) {
-            throw ValidationException::withMessages([
-                'identifier' => ['Admin wajib login menggunakan email.'],
-            ]);
-        }
-
-        if (!Hash::check($validated['password'], $user->password)) {
+        if (! Hash::check($validated['password'], $user->password)) {
             throw ValidationException::withMessages([
                 'password' => ['Kredensial tidak valid.'],
             ]);
         }
 
+        // Opsional: putuskan token lama agar 1 sesi aktif per user
         $user->tokens()->delete();
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
             'success' => true,
-            'message' => 'Login berhasil',
+            'message' => 'Login berhasil.',
             'data' => [
-                'user' => $user,
+                'user'  => $user,
                 'token' => $token,
-            ]
+            ],
         ], Response::HTTP_OK);
     }
 

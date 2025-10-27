@@ -6,7 +6,11 @@ use App\Models\Survey;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\Response;
+
+// Model Response dilakukan aliases supaya
+// menghindari bentrok dengan class Http Response
+use App\Models\Response as ResponseModel;
 
 class ResponseController extends Controller
 {
@@ -51,7 +55,7 @@ class ResponseController extends Controller
 
         DB::beginTransaction();
         try {
-            $response = Response::create([
+            $response = ResponseModel::create([
                 'survey_id' => $survey->id,
                 'user_id' => $user->id,
                 'submitted_at' => now(),
@@ -97,7 +101,7 @@ class ResponseController extends Controller
     {
         $user = $request->user();
 
-        $responses = Response::where('user_id', $user->id)
+        $responses = ResponseModel::where('user_id', $user->id)
             ->with(['survey', 'answers.question', 'answers.option'])
             ->latest()
             ->get();
