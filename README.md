@@ -1,4 +1,4 @@
-```markdown
+````markdown
 # 📚 Dokumentasi API Survey Mahasiswa
 
 ![Laravel](https://img.shields.io/badge/Laravel-12-red?style=flat-square&logo=laravel)
@@ -68,14 +68,12 @@ API RESTful untuk sistem survey mahasiswa dengan Laravel 12, dilengkapi dengan a
 
 -   ✅ Tambah pertanyaan ke survey
 -   ✅ Multiple choice dengan nilai/bobot per pilihan
--   ✅ Support tipe: multiple_choice, rating, text
 -   ✅ Update pertanyaan dan options
 -   ✅ Delete pertanyaan
 
 ### 👨‍🎓 Mahasiswa Features
 
 -   ✅ Lihat survey yang tersedia (belum diisi)
--   ✅ Filter otomatis: active & dalam periode
 -   ✅ Submit response dengan validasi
 -   ✅ Satu mahasiswa hanya bisa isi survey satu kali
 -   ✅ Lihat riwayat response
@@ -89,85 +87,16 @@ API RESTful untuk sistem survey mahasiswa dengan Laravel 12, dilengkapi dengan a
 
 ---
 
-## 🏗️ Arsitektur Sistem
-
-### Flow Diagram
-```
-
-┌─────────────┐
-│ Client │ (Web/Mobile App)
-│ (Frontend) │
-└──────┬──────┘
-│ HTTP/JSON
-│
-┌──────▼──────────────────────────────────┐
-│ Laravel API (Backend) │
-│ ┌────────────────────────────────┐ │
-│ │ Routes (api.php) │ │
-│ └─────────┬──────────────────────┘ │
-│ │ │
-│ ┌─────────▼──────────────────────┐ │
-│ │ Middleware │ │
-│ │ - auth:sanctum │ │
-│ │ - IsAdmin │ │
-│ └─────────┬──────────────────────┘ │
-│ │ │
-│ ┌─────────▼──────────────────────┐ │
-│ │ Controllers │ │
-│ │ - AuthController │ │
-│ │ - SurveyController │ │
-│ │ - QuestionController │ │
-│ │ - ResponseController │ │
-│ │ - AnalyticsController │ │
-│ └─────────┬──────────────────────┘ │
-│ │ │
-│ ┌─────────▼──────────────────────┐ │
-│ │ Models (Eloquent ORM) │ │
-│ │ - User │ │
-│ │ - Survey │ │
-│ │ - Question │ │
-│ │ - QuestionOption │ │
-│ │ - Response │ │
-│ │ - ResponseAnswer │ │
-│ └─────────┬──────────────────────┘ │
-│ │ │
-└────────────┼─────────────────────────────┘
-│
-┌─────▼─────┐
-│ MySQL │
-│ Database │
-└───────────┘
-
-```
-
-### Database Relationships
-
-```
-
-users (Admin & Mahasiswa)
-↓ (1:N)
-responses
-↓ (1:N)
-response_answers
-↓ (N:1)
-questions ← (1:N) surveys
-↓ (1:N)
-question_options
-
-````
-
----
-
 ## 🚀 Instalasi
 
 ### Prerequisites
 
 Pastikan sudah terinstall:
 
-- PHP >= 8.2
-- Composer
-- MySQL >= 8.0
-- Git
+-   PHP >= 8.2
+-   Composer
+-   MySQL >= 8.0
+-   Git
 
 ### Langkah Instalasi
 
@@ -176,6 +105,7 @@ Pastikan sudah terinstall:
 ```bash
 git clone https://github.com/username/survey-api.git
 cd survey-api
+```
 ````
 
 #### 2. Install Dependencies
@@ -237,33 +167,6 @@ Server akan berjalan di: `http://localhost:8000`
 
 ---
 
-## ⚙️ Konfigurasi
-
-### CORS Configuration
-
-Edit `config/cors.php`:
-
-```php
-'paths' => ['api/*', 'sanctum/csrf-cookie'],
-'allowed_origins' => [
-    'http://localhost:3000',
-    'http://localhost:5173',
-],
-'allowed_methods' => ['*'],
-'allowed_headers' => ['*'],
-'supports_credentials' => true,
-```
-
-### Sanctum Configuration
-
-Edit `config/sanctum.php`:
-
-```php
-'expiration' => null, // Token tidak expire
-// atau
-'expiration' => 525600, // 1 tahun
-```
-
 ### Environment Variables
 
 ```env
@@ -271,13 +174,7 @@ APP_NAME="Survey Mahasiswa API"
 APP_ENV=local
 APP_DEBUG=true
 APP_URL=http://localhost:8000
-
-SANCTUM_STATEFUL_DOMAINS=localhost:3000,localhost:5173
-
-SESSION_DRIVER=database
 ```
-
----
 
 ## 🗄️ Database Schema
 
@@ -301,6 +198,7 @@ SESSION_DRIVER=database
 | Column          | Type    | Description          |
 | --------------- | ------- | -------------------- |
 | id              | BIGINT  | Primary key          |
+| uuid            | CHAR    | Unik field           |
 | judul           | STRING  | Judul survey         |
 | deskripsi       | TEXT    | Deskripsi (nullable) |
 | tanggal_mulai   | DATE    | Tanggal mulai        |
@@ -312,6 +210,7 @@ SESSION_DRIVER=database
 | Column     | Type   | Description                   |
 | ---------- | ------ | ----------------------------- |
 | id         | BIGINT | Primary key                   |
+| uuid       | CHAR   | Unik field                    |
 | survey_id  | BIGINT | Foreign key → surveys         |
 | pertanyaan | TEXT   | Teks pertanyaan               |
 | tipe       | ENUM   | multiple_choice, rating, text |
@@ -331,6 +230,7 @@ SESSION_DRIVER=database
 | Column       | Type      | Description           |
 | ------------ | --------- | --------------------- |
 | id           | BIGINT    | Primary key           |
+| uuid         | CHAR      | Unik field            |
 | survey_id    | BIGINT    | Foreign key → surveys |
 | user_id      | BIGINT    | Foreign key → users   |
 | submitted_at | TIMESTAMP | Waktu submit          |
@@ -358,43 +258,43 @@ Base URL: `http://localhost:8000/api`
 
 | Method | Endpoint  | Auth | Description        |
 | ------ | --------- | ---- | ------------------ |
-| POST   | /register | ❌   | Register mahasiswa |
 | POST   | /login    | ❌   | Login              |
+| POST   | /register | ✅   | Register mahasiswa |
 | POST   | /logout   | ✅   | Logout             |
 | GET    | /me       | ✅   | Get user profile   |
 
 ### Mahasiswa Endpoints
 
-| Method | Endpoint                        | Auth | Description           |
-| ------ | ------------------------------- | ---- | --------------------- |
-| GET    | /mahasiswa/surveys/available    | ✅   | Get available surveys |
-| POST   | /mahasiswa/surveys/{id}/respond | ✅   | Submit response       |
-| GET    | /mahasiswa/my-responses         | ✅   | Get response history  |
+| Method | Endpoint                          | Auth | Description           |
+| ------ | --------------------------------- | ---- | --------------------- |
+| GET    | /mahasiswa/surveys/available      | ✅   | Get available surveys |
+| POST   | /mahasiswa/surveys/{uuid}/respond | ✅   | Submit response       |
+| GET    | /mahasiswa/my-responses           | ✅   | Get response history  |
 
 ### Admin - Survey Management
 
-| Method | Endpoint            | Auth  | Description       |
-| ------ | ------------------- | ----- | ----------------- |
-| GET    | /admin/surveys      | Admin | Get all surveys   |
-| POST   | /admin/surveys      | Admin | Create survey     |
-| GET    | /admin/surveys/{id} | Admin | Get survey detail |
-| PUT    | /admin/surveys/{id} | Admin | Update survey     |
-| DELETE | /admin/surveys/{id} | Admin | Delete survey     |
+| Method | Endpoint              | Auth  | Description       |
+| ------ | --------------------- | ----- | ----------------- |
+| GET    | /admin/surveys        | Admin | Get all surveys   |
+| POST   | /admin/surveys        | Admin | Create survey     |
+| GET    | /admin/surveys/{uuid} | Admin | Get survey detail |
+| PUT    | /admin/surveys/{uuid} | Admin | Update survey     |
+| DELETE | /admin/surveys/{uuid} | Admin | Delete survey     |
 
 ### Admin - Question Management
 
-| Method | Endpoint                      | Auth  | Description     |
-| ------ | ----------------------------- | ----- | --------------- |
-| POST   | /admin/surveys/{id}/questions | Admin | Add question    |
-| PUT    | /admin/questions/{id}         | Admin | Update question |
-| DELETE | /admin/questions/{id}         | Admin | Delete question |
+| Method | Endpoint                        | Auth  | Description     |
+| ------ | ------------------------------- | ----- | --------------- |
+| POST   | /admin/surveys/{uuid}/questions | Admin | Add question    |
+| PUT    | /admin/questions/{id}           | Admin | Update question |
+| DELETE | /admin/questions/{id}           | Admin | Delete question |
 
 ### Admin - Analytics
 
-| Method | Endpoint                      | Auth  | Description          |
-| ------ | ----------------------------- | ----- | -------------------- |
-| GET    | /admin/analytics/surveys/{id} | Admin | Get survey analytics |
-| GET    | /admin/analytics/overview     | Admin | Get overall stats    |
+| Method | Endpoint                        | Auth  | Description          |
+| ------ | ------------------------------- | ----- | -------------------- |
+| GET    | /admin/analytics/surveys/{uuid} | Admin | Get survey analytics |
+| GET    | /admin/analytics/overview       | Admin | Get overall stats    |
 
 ---
 
@@ -406,11 +306,11 @@ Base URL: `http://localhost:8000/api`
 
 ```json
 {
-    "nim": "2021001",
-    "nama": "Budi Santoso",
-    "email": "budi@mahasiswa.com",
-    "tanggal_lahir": "2000-10-18",
-    "jurusan": "Teknik Informatika"
+    "nim": "21220019",
+    "nama": "Rahmat Hidayat Lubis",
+    "email": "rahmattlubis86@gmail.com",
+    "tanggal_lahir": "2000-10-09",
+    "jurusan": "Sistem Informasi"
 }
 ```
 
@@ -418,19 +318,26 @@ Base URL: `http://localhost:8000/api`
 
 ```json
 {
-    "message": "Registrasi berhasil",
-    "user": {
-        "id": 1,
-        "nim": "2021001",
-        "nama": "Budi Santoso",
-        "email": "budi@mahasiswa.com",
-        "role": "mahasiswa"
-    },
-    "token": "1|xxxxxxxxxxxxxxxxxxxx"
+    "success": true,
+    "message": "Registrasi mahasiswa berhasil",
+    "data": {
+        "user": {
+            "nim": "21220019",
+            "nama": "Rahmat Hidayat Lubis",
+            "email": "rahmattlubis86@gmail.com",
+            "tanggal_lahir": "2000-10-09T17:00:00.000000Z",
+            "jurusan": "Sistem Informasi",
+            "role": "mahasiswa",
+            "uuid": "52c5065c-e619-44c5-8e6e-894dff6b7139",
+            "updated_at": "2025-10-28T02:29:12.000000Z",
+            "created_at": "2025-10-28T02:29:12.000000Z",
+            "id": 4
+        }
+    }
 }
 ```
 
-**Password Default:** `18102000` (dari tanggal_lahir: 18-10-2000)
+**Password Default (Jika tidak mengirim request password):** `10102000` (dari tanggal_lahir: 10-10-2000)
 
 ### Login (POST /login)
 
@@ -438,8 +345,8 @@ Base URL: `http://localhost:8000/api`
 
 ```json
 {
-    "nim": "2021001",
-    "password": "18102000"
+    "identifier": "21220019",
+    "password": "10102000"
 }
 ```
 
@@ -447,14 +354,23 @@ Base URL: `http://localhost:8000/api`
 
 ```json
 {
-    "message": "Login berhasil",
-    "user": {
-        "id": 1,
-        "nim": "2021001",
-        "nama": "Budi Santoso",
-        "role": "mahasiswa"
-    },
-    "token": "2|xxxxxxxxxxxxxxxxxxxx"
+    "success": true,
+    "message": "Login berhasil.",
+    "data": {
+        "user": {
+            "id": 4,
+            "uuid": "xxx-xxxxxx-xxxxxx-xxxxxx-xxxxx",
+            "nim": "21220019",
+            "nama": "Rahmat Hidayat Lubis",
+            "email": "rahmattlubis86@gmail.com",
+            "tanggal_lahir": "2000-10-09T17:00:00.000000Z",
+            "jurusan": "Sistem Informasi",
+            "role": "mahasiswa",
+            "created_at": "2025-10-28T02:29:12.000000Z",
+            "updated_at": "2025-10-28T02:29:12.000000Z"
+        },
+        "token": "2|xxxxxxxxxxxxxxxxxxxxxxxxxx"
+    }
 }
 ```
 
@@ -499,7 +415,7 @@ POST /api/login
 
 ```json
 {
-    "nim": "ADMIN001",
+    "identifier": "admin@survey.com",
     "password": "admin123"
 }
 ```
@@ -510,14 +426,14 @@ Simpan `token` dari response.
 
 ```bash
 POST /api/admin/surveys
-Authorization: Bearer {admin_token}
+Authorization: Bearer {token}
 ```
 
 ```json
 {
-    "judul": "Survey Kepuasan Mahasiswa 2025",
-    "deskripsi": "Evaluasi layanan akademik semester genap",
-    "tanggal_mulai": "2025-10-20",
+    "judul": "Survey Kepuasan Mahasiswa Semester Genap 2025",
+    "deskripsi": "Survey untuk mengukur tingkat kepuasan mahasiswa terhadap pembelajaran semester genap",
+    "tanggal_mulai": "2025-10-25",
     "tanggal_selesai": "2025-12-31",
     "is_active": true
 }
@@ -527,22 +443,31 @@ Authorization: Bearer {admin_token}
 
 ```json
 {
-    "message": "Survey berhasil dibuat",
-    "survey": {
-        "id": 1,
-        "judul": "Survey Kepuasan Mahasiswa 2025",
-        ...
+    "success": true,
+    "message": "Survey berhasil dibuat.",
+    "data": {
+        "survey": {
+            "judul": "Survey Kepuasan Mahasiswa Semester Genap 2025",
+            "deskripsi": "Survey untuk mengukur tingkat kepuasan mahasiswa terhadap pembelajaran semester genap",
+            "tanggal_mulai": "2025-10-24T17:00:00.000000Z",
+            "tanggal_selesai": "2025-12-30T17:00:00.000000Z",
+            "is_active": true,
+            "uuid": "f5d63c3f-c011-45c4-8340-db87f45e1632",
+            "updated_at": "2025-10-28T02:43:44.000000Z",
+            "created_at": "2025-10-28T02:43:44.000000Z",
+            "id": 3
+        }
     }
 }
 ```
 
-Simpan `survey_id` = 1
+Simpan `uuid_survey` = xxxx-xxxx-xxxx-xx
 
 #### Step 3: Tambah Pertanyaan
 
 ```bash
-POST /api/admin/surveys/1/questions
-Authorization: Bearer {admin_token}
+POST /api/admin/surveys/{uuid_survey}/questions
+Authorization: Bearer {token}
 ```
 
 ```json
@@ -580,33 +505,17 @@ Ulangi untuk menambah pertanyaan lainnya.
 #### Step 4: Verifikasi Survey
 
 ```bash
-GET /api/admin/surveys/1
-Authorization: Bearer {admin_token}
+GET /api/admin/surveys/{uuid_survey}
+Authorization: Bearer {token}
 ```
 
 ---
 
 ### Skenario 2: Mahasiswa Mengisi Survey
 
-#### Step 1: Register/Login sebagai Mahasiswa
+#### Step 1: Login dengan akun mahasiswa
 
-**Register:**
-
-```bash
-POST /api/register
-```
-
-```json
-{
-    "nim": "2021005",
-    "nama": "Dewi Lestari",
-    "email": "dewi@mahasiswa.com",
-    "tanggal_lahir": "2001-08-20",
-    "jurusan": "Sistem Informasi"
-}
-```
-
-**Atau Login:**
+**Login:**
 
 ```bash
 POST /api/login
@@ -614,8 +523,8 @@ POST /api/login
 
 ```json
 {
-    "nim": "2021001",
-    "password": "18102000"
+    "identifier": "21220019",
+    "password": "10102000"
 }
 ```
 
@@ -623,43 +532,346 @@ POST /api/login
 
 ```bash
 GET /api/mahasiswa/surveys/available
-Authorization: Bearer {mahasiswa_token}
+Authorization: Bearer {token}
 ```
 
 **Response:**
 
 ```json
 {
-    "surveys": [
-        {
-            "id": 1,
-            "judul": "Survey Kepuasan Mahasiswa 2025",
-            "deskripsi": "...",
-            "is_active": true,
-            "questions": [
-                {
-                    "id": 1,
-                    "pertanyaan": "Bagaimana kualitas pengajaran dosen?",
-                    "options": [
-                        {
-                            "id": 1,
-                            "teks_pilihan": "Sangat Baik",
-                            "nilai": 5
-                        },
-                        ...
-                    ]
-                }
-            ]
-        }
-    ]
+    "success": true,
+    "message": "Berhasil mengambil survey tersedia.",
+    "data": {
+        "surveys": [
+            {
+                "id": 1,
+                "uuid": "cbd8916f-c460-4ff0-9e57-59819ad6996f",
+                "judul": "Evaluasi Kepuasan Mahasiswa Terhadap Layanan Akademik",
+                "deskripsi": "Survey untuk mengevaluasi tingkat kepuasan mahasiswa terhadap layanan akademik kampus semester genap 2025",
+                "tanggal_mulai": "2025-10-20T17:00:00.000000Z",
+                "tanggal_selesai": "2025-11-26T17:00:00.000000Z",
+                "is_active": true,
+                "created_at": "2025-10-27T17:05:07.000000Z",
+                "updated_at": "2025-10-27T17:05:07.000000Z",
+                "questions": [
+                    {
+                        "id": 1,
+                        "survey_id": 1,
+                        "pertanyaan": "Bagaimana penilaian Anda terhadap kualitas pengajaran dosen?",
+                        "tipe": "multiple_choice",
+                        "urutan": 1,
+                        "created_at": "2025-10-27T17:05:07.000000Z",
+                        "updated_at": "2025-10-27T17:05:07.000000Z",
+                        "options": [
+                            {
+                                "id": 1,
+                                "question_id": 1,
+                                "teks_pilihan": "Sangat Baik",
+                                "nilai": 5,
+                                "created_at": "2025-10-27T17:05:07.000000Z",
+                                "updated_at": "2025-10-27T17:05:07.000000Z"
+                            },
+                            {
+                                "id": 2,
+                                "question_id": 1,
+                                "teks_pilihan": "Baik",
+                                "nilai": 4,
+                                "created_at": "2025-10-27T17:05:07.000000Z",
+                                "updated_at": "2025-10-27T17:05:07.000000Z"
+                            },
+                            {
+                                "id": 3,
+                                "question_id": 1,
+                                "teks_pilihan": "Cukup",
+                                "nilai": 3,
+                                "created_at": "2025-10-27T17:05:07.000000Z",
+                                "updated_at": "2025-10-27T17:05:07.000000Z"
+                            },
+                            {
+                                "id": 4,
+                                "question_id": 1,
+                                "teks_pilihan": "Kurang",
+                                "nilai": 2,
+                                "created_at": "2025-10-27T17:05:07.000000Z",
+                                "updated_at": "2025-10-27T17:05:07.000000Z"
+                            },
+                            {
+                                "id": 5,
+                                "question_id": 1,
+                                "teks_pilihan": "Sangat Kurang",
+                                "nilai": 1,
+                                "created_at": "2025-10-27T17:05:07.000000Z",
+                                "updated_at": "2025-10-27T17:05:07.000000Z"
+                            }
+                        ]
+                    },
+                    {
+                        "id": 2,
+                        "survey_id": 1,
+                        "pertanyaan": "Seberapa puas Anda dengan fasilitas perpustakaan?",
+                        "tipe": "multiple_choice",
+                        "urutan": 2,
+                        "created_at": "2025-10-27T17:05:07.000000Z",
+                        "updated_at": "2025-10-27T17:05:07.000000Z",
+                        "options": [
+                            {
+                                "id": 6,
+                                "question_id": 2,
+                                "teks_pilihan": "Sangat Puas",
+                                "nilai": 5,
+                                "created_at": "2025-10-27T17:05:07.000000Z",
+                                "updated_at": "2025-10-27T17:05:07.000000Z"
+                            },
+                            {
+                                "id": 7,
+                                "question_id": 2,
+                                "teks_pilihan": "Puas",
+                                "nilai": 4,
+                                "created_at": "2025-10-27T17:05:07.000000Z",
+                                "updated_at": "2025-10-27T17:05:07.000000Z"
+                            },
+                            {
+                                "id": 8,
+                                "question_id": 2,
+                                "teks_pilihan": "Cukup Puas",
+                                "nilai": 3,
+                                "created_at": "2025-10-27T17:05:07.000000Z",
+                                "updated_at": "2025-10-27T17:05:07.000000Z"
+                            },
+                            {
+                                "id": 9,
+                                "question_id": 2,
+                                "teks_pilihan": "Tidak Puas",
+                                "nilai": 2,
+                                "created_at": "2025-10-27T17:05:07.000000Z",
+                                "updated_at": "2025-10-27T17:05:07.000000Z"
+                            },
+                            {
+                                "id": 10,
+                                "question_id": 2,
+                                "teks_pilihan": "Sangat Tidak Puas",
+                                "nilai": 1,
+                                "created_at": "2025-10-27T17:05:07.000000Z",
+                                "updated_at": "2025-10-27T17:05:07.000000Z"
+                            }
+                        ]
+                    },
+                    {
+                        "id": 3,
+                        "survey_id": 1,
+                        "pertanyaan": "Bagaimana pelayanan administrasi akademik?",
+                        "tipe": "multiple_choice",
+                        "urutan": 3,
+                        "created_at": "2025-10-27T17:05:07.000000Z",
+                        "updated_at": "2025-10-27T17:05:07.000000Z",
+                        "options": [
+                            {
+                                "id": 11,
+                                "question_id": 3,
+                                "teks_pilihan": "Sangat Memuaskan",
+                                "nilai": 5,
+                                "created_at": "2025-10-27T17:05:07.000000Z",
+                                "updated_at": "2025-10-27T17:05:07.000000Z"
+                            },
+                            {
+                                "id": 12,
+                                "question_id": 3,
+                                "teks_pilihan": "Memuaskan",
+                                "nilai": 4,
+                                "created_at": "2025-10-27T17:05:07.000000Z",
+                                "updated_at": "2025-10-27T17:05:07.000000Z"
+                            },
+                            {
+                                "id": 13,
+                                "question_id": 3,
+                                "teks_pilihan": "Cukup",
+                                "nilai": 3,
+                                "created_at": "2025-10-27T17:05:07.000000Z",
+                                "updated_at": "2025-10-27T17:05:07.000000Z"
+                            },
+                            {
+                                "id": 14,
+                                "question_id": 3,
+                                "teks_pilihan": "Kurang Memuaskan",
+                                "nilai": 2,
+                                "created_at": "2025-10-27T17:05:07.000000Z",
+                                "updated_at": "2025-10-27T17:05:07.000000Z"
+                            },
+                            {
+                                "id": 15,
+                                "question_id": 3,
+                                "teks_pilihan": "Tidak Memuaskan",
+                                "nilai": 1,
+                                "created_at": "2025-10-27T17:05:07.000000Z",
+                                "updated_at": "2025-10-27T17:05:07.000000Z"
+                            }
+                        ]
+                    },
+                    {
+                        "id": 4,
+                        "survey_id": 1,
+                        "pertanyaan": "Bagaimana kondisi fasilitas laboratorium komputer?",
+                        "tipe": "multiple_choice",
+                        "urutan": 4,
+                        "created_at": "2025-10-27T17:05:07.000000Z",
+                        "updated_at": "2025-10-27T17:05:07.000000Z",
+                        "options": [
+                            {
+                                "id": 16,
+                                "question_id": 4,
+                                "teks_pilihan": "Sangat Baik",
+                                "nilai": 5,
+                                "created_at": "2025-10-27T17:05:07.000000Z",
+                                "updated_at": "2025-10-27T17:05:07.000000Z"
+                            },
+                            {
+                                "id": 17,
+                                "question_id": 4,
+                                "teks_pilihan": "Baik",
+                                "nilai": 4,
+                                "created_at": "2025-10-27T17:05:07.000000Z",
+                                "updated_at": "2025-10-27T17:05:07.000000Z"
+                            },
+                            {
+                                "id": 18,
+                                "question_id": 4,
+                                "teks_pilihan": "Cukup",
+                                "nilai": 3,
+                                "created_at": "2025-10-27T17:05:07.000000Z",
+                                "updated_at": "2025-10-27T17:05:07.000000Z"
+                            },
+                            {
+                                "id": 19,
+                                "question_id": 4,
+                                "teks_pilihan": "Buruk",
+                                "nilai": 2,
+                                "created_at": "2025-10-27T17:05:07.000000Z",
+                                "updated_at": "2025-10-27T17:05:07.000000Z"
+                            },
+                            {
+                                "id": 20,
+                                "question_id": 4,
+                                "teks_pilihan": "Sangat Buruk",
+                                "nilai": 1,
+                                "created_at": "2025-10-27T17:05:07.000000Z",
+                                "updated_at": "2025-10-27T17:05:07.000000Z"
+                            }
+                        ]
+                    },
+                    {
+                        "id": 5,
+                        "survey_id": 1,
+                        "pertanyaan": "Bagaimana penilaian Anda terhadap kebersihan lingkungan kampus?",
+                        "tipe": "multiple_choice",
+                        "urutan": 5,
+                        "created_at": "2025-10-27T17:05:07.000000Z",
+                        "updated_at": "2025-10-27T17:05:07.000000Z",
+                        "options": [
+                            {
+                                "id": 21,
+                                "question_id": 5,
+                                "teks_pilihan": "Sangat Bersih",
+                                "nilai": 5,
+                                "created_at": "2025-10-27T17:05:07.000000Z",
+                                "updated_at": "2025-10-27T17:05:07.000000Z"
+                            },
+                            {
+                                "id": 22,
+                                "question_id": 5,
+                                "teks_pilihan": "Bersih",
+                                "nilai": 4,
+                                "created_at": "2025-10-27T17:05:07.000000Z",
+                                "updated_at": "2025-10-27T17:05:07.000000Z"
+                            },
+                            {
+                                "id": 23,
+                                "question_id": 5,
+                                "teks_pilihan": "Cukup Bersih",
+                                "nilai": 3,
+                                "created_at": "2025-10-27T17:05:07.000000Z",
+                                "updated_at": "2025-10-27T17:05:07.000000Z"
+                            },
+                            {
+                                "id": 24,
+                                "question_id": 5,
+                                "teks_pilihan": "Kotor",
+                                "nilai": 2,
+                                "created_at": "2025-10-27T17:05:07.000000Z",
+                                "updated_at": "2025-10-27T17:05:07.000000Z"
+                            },
+                            {
+                                "id": 25,
+                                "question_id": 5,
+                                "teks_pilihan": "Sangat Kotor",
+                                "nilai": 1,
+                                "created_at": "2025-10-27T17:05:07.000000Z",
+                                "updated_at": "2025-10-27T17:05:07.000000Z"
+                            }
+                        ]
+                    },
+                    {
+                        "id": 7,
+                        "survey_id": 1,
+                        "pertanyaan": "Apakah koneksi WiFi kampus memadai?",
+                        "tipe": "multiple_choice",
+                        "urutan": 6,
+                        "created_at": "2025-10-27T17:05:57.000000Z",
+                        "updated_at": "2025-10-27T17:05:57.000000Z",
+                        "options": [
+                            {
+                                "id": 31,
+                                "question_id": 7,
+                                "teks_pilihan": "Sangat Memadai",
+                                "nilai": 5,
+                                "created_at": "2025-10-27T17:05:57.000000Z",
+                                "updated_at": "2025-10-27T17:05:57.000000Z"
+                            },
+                            {
+                                "id": 32,
+                                "question_id": 7,
+                                "teks_pilihan": "Memadai",
+                                "nilai": 4,
+                                "created_at": "2025-10-27T17:05:57.000000Z",
+                                "updated_at": "2025-10-27T17:05:57.000000Z"
+                            },
+                            {
+                                "id": 33,
+                                "question_id": 7,
+                                "teks_pilihan": "Cukup",
+                                "nilai": 3,
+                                "created_at": "2025-10-27T17:05:57.000000Z",
+                                "updated_at": "2025-10-27T17:05:57.000000Z"
+                            },
+                            {
+                                "id": 34,
+                                "question_id": 7,
+                                "teks_pilihan": "Kurang Memadai",
+                                "nilai": 2,
+                                "created_at": "2025-10-27T17:05:57.000000Z",
+                                "updated_at": "2025-10-27T17:05:57.000000Z"
+                            },
+                            {
+                                "id": 35,
+                                "question_id": 7,
+                                "teks_pilihan": "Tidak Memadai",
+                                "nilai": 1,
+                                "created_at": "2025-10-27T17:05:57.000000Z",
+                                "updated_at": "2025-10-27T17:05:57.000000Z"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
 }
 ```
 
 #### Step 3: Submit Response
 
 ```bash
-POST /api/mahasiswa/surveys/1/respond
-Authorization: Bearer {mahasiswa_token}
+POST /api/mahasiswa/surveys/{uuid_survey}/respond
+Authorization: Bearer {token}
 ```
 
 ```json
@@ -676,6 +888,14 @@ Authorization: Bearer {mahasiswa_token}
         {
             "question_id": 3,
             "question_option_id": 13
+        },
+        {
+            "question_id": 4,
+            "question_option_id": 18
+        },
+        {
+            "question_id": 5,
+            "question_option_id": 23
         }
     ]
 }
@@ -685,13 +905,69 @@ Authorization: Bearer {mahasiswa_token}
 
 ```json
 {
-    "message": "Terima kasih! Jawaban Anda telah tersimpan",
-    "response": {
-        "id": 1,
-        "survey_id": 1,
-        "user_id": 2,
-        "submitted_at": "2025-10-24T10:30:00Z",
-        "answers": [...]
+    "success": true,
+    "message": "Terima kasih! Jawaban Anda telah tersimpan.",
+    "data": {
+        "response": {
+            "survey_id": 3,
+            "user_id": 4,
+            "submitted_at": "2025-10-28T02:52:05.000000Z",
+            "updated_at": "2025-10-28T02:52:05.000000Z",
+            "created_at": "2025-10-28T02:52:05.000000Z",
+            "id": 1,
+            "answers": [
+                {
+                    "id": 1,
+                    "response_id": 1,
+                    "question_id": 1,
+                    "question_option_id": 1,
+                    "jawaban_teks": null,
+                    "nilai": 5,
+                    "created_at": "2025-10-28T02:52:05.000000Z",
+                    "updated_at": "2025-10-28T02:52:05.000000Z"
+                },
+                {
+                    "id": 2,
+                    "response_id": 1,
+                    "question_id": 2,
+                    "question_option_id": 9,
+                    "jawaban_teks": null,
+                    "nilai": 2,
+                    "created_at": "2025-10-28T02:52:05.000000Z",
+                    "updated_at": "2025-10-28T02:52:05.000000Z"
+                },
+                {
+                    "id": 3,
+                    "response_id": 1,
+                    "question_id": 3,
+                    "question_option_id": 13,
+                    "jawaban_teks": null,
+                    "nilai": 3,
+                    "created_at": "2025-10-28T02:52:05.000000Z",
+                    "updated_at": "2025-10-28T02:52:05.000000Z"
+                },
+                {
+                    "id": 4,
+                    "response_id": 1,
+                    "question_id": 4,
+                    "question_option_id": 18,
+                    "jawaban_teks": null,
+                    "nilai": 3,
+                    "created_at": "2025-10-28T02:52:05.000000Z",
+                    "updated_at": "2025-10-28T02:52:05.000000Z"
+                },
+                {
+                    "id": 5,
+                    "response_id": 1,
+                    "question_id": 5,
+                    "question_option_id": 23,
+                    "jawaban_teks": null,
+                    "nilai": 3,
+                    "created_at": "2025-10-28T02:52:05.000000Z",
+                    "updated_at": "2025-10-28T02:52:05.000000Z"
+                }
+            ]
+        }
     }
 }
 ```
@@ -700,7 +976,7 @@ Authorization: Bearer {mahasiswa_token}
 
 ```bash
 GET /api/mahasiswa/my-responses
-Authorization: Bearer {mahasiswa_token}
+Authorization: Bearer {token}
 ```
 
 ---
@@ -715,7 +991,7 @@ POST /api/login
 
 ```json
 {
-    "nim": "ADMIN001",
+    "identifier": "admin@survey.com",
     "password": "admin123"
 }
 ```
@@ -724,52 +1000,69 @@ POST /api/login
 
 ```bash
 GET /api/admin/analytics/overview
-Authorization: Bearer {admin_token}
+Authorization: Bearer {token}
 ```
 
 **Response:**
 
 ```json
 {
-    "statistics": {
-        "total_surveys": 5,
-        "active_surveys": 3,
-        "total_responses": 150,
-        "total_mahasiswa": 45
-    },
-    "top_surveys": [
-        {
-            "id": 1,
-            "judul": "Survey Kepuasan Mahasiswa 2025",
-            "responses_count": 50
-        }
-    ]
+    "success": true,
+    "message": "Statistik keseluruhan berhasil diambil.",
+    "data": {
+        "statistics": {
+            "total_surveys": 3,
+            "active_surveys": 2,
+            "total_responses": 1,
+            "total_mahasiswa": 3
+        },
+        "top_surveys": [
+            {
+                "id": 3,
+                "judul": "Survey Kepuasan Mahasiswa Semester Genap 2025",
+                "responses_count": 1
+            },
+            {
+                "id": 1,
+                "judul": "Evaluasi Kepuasan Mahasiswa Terhadap Layanan Akademik",
+                "responses_count": 0
+            },
+            {
+                "id": 2,
+                "judul": "Evaluasi Pembelajaran Online",
+                "responses_count": 0
+            }
+        ]
+    }
 }
 ```
 
 #### Step 3: Lihat Analytics Per Survey
 
 ```bash
-GET /api/admin/analytics/surveys/1
-Authorization: Bearer {admin_token}
+GET /api/admin/analytics/surveys/{uuid_survey}
+Authorization: Bearer {token}
 ```
 
 **Response:**
 
 ```json
 {
-    "survey": {
+    "success": true,
+    "message": "Analytics survey berhasil diambil.",
+    "data": {
+        "survey": {
         "id": 1,
         "judul": "Survey Kepuasan Mahasiswa 2025",
         "total_responses": 50
     },
-    "analytics": [
+    "analytics": {
         {
             "question_id": 1,
             "pertanyaan": "Bagaimana kualitas pengajaran dosen?",
             "total_jawaban": 50,
             "nilai_rata_rata": 4.2,
-            "option_statistics": [
+            "option_statistics": {
                 {
                     "option_id": 1,
                     "teks_pilihan": "Sangat Baik",
@@ -784,73 +1077,12 @@ Authorization: Bearer {admin_token}
                     "jumlah_dipilih": 25,
                     "persentase": 50
                 },
-                ...
-            ]
+            }
         }
-    ]
+    }
+    }
 }
 ```
-
----
-
-## 🧪 Testing
-
-### Testing dengan Postman
-
-#### 1. Import Collection
-
-File: `Survey_API_Complete.postman_collection.json`
-
-1. Buka Postman
-2. Klik **Import**
-3. Upload file collection
-4. Collection siap digunakan
-
-#### 2. Setup Environment
-
-Buat environment baru:
-
--   `base_url`: `http://localhost:8000/api`
--   `token`: (otomatis tersimpan setelah login)
-
-#### 3. Run Tests
-
-**Manual Testing:**
-
-1. Folder **1. Authentication** → Login Admin/Mahasiswa
-2. Token otomatis tersimpan
-3. Test endpoint lainnya
-
-**Automated Testing:**
-
-1. Klik kanan collection
-2. Pilih **Run collection**
-3. Pilih requests yang ingin di-test
-4. Klik **Run**
-
-### Testing dengan Frontend HTML
-
-#### 1. Buka Testing Interface
-
-```bash
-# Buka file di browser
-open index.html
-# atau
-python -m http.server 8080
-```
-
-#### 2. Akses via Browser
-
-```
-http://localhost:8080
-```
-
-#### 3. Test Scenarios
-
--   Login sebagai Admin/Mahasiswa
--   Navigasi antar tab
--   Test CRUD operations
--   View analytics
 
 ---
 
@@ -902,11 +1134,8 @@ chmod -R 755 storage bootstrap/cache
 #### 4. Database Migration
 
 ```bash
-# Run migrations on production
-php artisan migrate --force
-
-# Seed admin user only (jangan seed semua data testing)
-php artisan db:seed --class=AdminSeeder
+# Run migrations on local
+php artisan migrate:fresh --seed
 ```
 
 #### 5. SSL Certificate
@@ -1055,15 +1284,9 @@ php artisan view:clear
 
 Jika menemukan bug atau ingin request fitur:
 
-1. Buka [GitHub Issues](https://github.com/username/survey-api/issues)
+1. Buka [GitHub Issues](https://github.com/rahmathidayatlubis/survey-api/issues)
 2. Jelaskan masalah dengan detail
 3. Sertakan error log jika ada
-
-### Community
-
--   **Discord:** [Join our server](#)
--   **Email:** support@surveyapi.com
--   **Forum:** [Community Forum](#)
 
 ---
 
@@ -1074,7 +1297,7 @@ Kontribusi sangat diterima! Berikut cara berkontribusi:
 ### 1. Fork Repository
 
 ```bash
-git clone https://github.com/your-username/survey-api.git
+git clone https://github.com/rahmathidayatlubis/survey-api.git
 cd survey-api
 ```
 
@@ -1188,23 +1411,3 @@ in the Software without restriction...
 -   Postman collection
 -   HTML testing interface
 -   Complete documentation
-
----
-
-## 🎓 Learning Resources
-
-### Untuk Pemula
-
-1. **Laravel Basics**
-
-    - [Laravel From Scratch](https://laracasts.com/series/laravel-from-scratch)
-    - [Laravel Documentation](https://laravel.com/docs)
-
-2. **REST API**
-
-    - [RESTful API Design Best Practices](https://restfulapi.net/)
-    - [HTTP Status Codes](https://httpstatuses.com/)
-
-3. **Database Design**
-    - [Database Normalization](https://www.guru99.com/database-normalization.html)
-    - [Laravel Eloquent Relationships](https://laravel.com/docs/eloquent-relationships)

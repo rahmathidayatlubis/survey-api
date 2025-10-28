@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('surveys', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid')->unique();
             $table->string('judul');
             $table->text('deskripsi')->nullable();
             $table->date('tanggal_mulai');
