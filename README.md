@@ -183,6 +183,7 @@ APP_URL=http://localhost:8000
 | Column        | Type   | Description                    |
 | ------------- | ------ | ------------------------------ |
 | id            | BIGINT | Primary key                    |
+| uuid          | CHAR   | Unik field                     |
 | nim           | STRING | Nomor Induk Mahasiswa (unique) |
 | nama          | STRING | Nama lengkap                   |
 | email         | STRING | Email (unique)                 |
@@ -210,7 +211,6 @@ APP_URL=http://localhost:8000
 | Column     | Type   | Description                   |
 | ---------- | ------ | ----------------------------- |
 | id         | BIGINT | Primary key                   |
-| uuid       | CHAR   | Unik field                    |
 | survey_id  | BIGINT | Foreign key → surveys         |
 | pertanyaan | TEXT   | Teks pertanyaan               |
 | tipe       | ENUM   | multiple_choice, rating, text |
@@ -230,7 +230,6 @@ APP_URL=http://localhost:8000
 | Column       | Type      | Description           |
 | ------------ | --------- | --------------------- |
 | id           | BIGINT    | Primary key           |
-| uuid         | CHAR      | Unik field            |
 | survey_id    | BIGINT    | Foreign key → surveys |
 | user_id      | BIGINT    | Foreign key → users   |
 | submitted_at | TIMESTAMP | Waktu submit          |
