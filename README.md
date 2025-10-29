@@ -1,10 +1,15 @@
 # 📚 Dokumentasi API Survey Mahasiswa
 
 <div align="center">
+
 ![Laravel](https://img.shields.io/badge/Laravel-12.34.0-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
 ![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
 ![PHP](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white)
+![REST API](https://img.shields.io/badge/REST-API-009688?style=for-the-badge&logo=fastapi&logoColor=white)
+
 </div>
+
+---
 
 API RESTful untuk sistem survey mahasiswa dengan Laravel 12, dilengkapi dengan autentikasi, manajemen survey, dan analytics dasar.
 
