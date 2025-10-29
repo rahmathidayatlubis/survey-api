@@ -108,12 +108,12 @@ Pastikan sudah terinstall:
 #### 1. Clone Repository
 
 ```bash
-git clone https://github.com/username/survey-api.git
+git clone https://github.com/rahmathidayatlubis/survey-api.git
+
+```
+
+```bash
 cd survey-api
-```
-
-```
-
 ```
 
 #### 2. Install Dependencies
@@ -152,6 +152,8 @@ mysql -u root -p
 CREATE DATABASE survey_mahasiswa;
 EXIT;
 ```
+
+Atau bisa juga menggunakan phpMyAdmin supaya lebih mudah
 
 #### 6. Jalankan Migration & Seeder
 
