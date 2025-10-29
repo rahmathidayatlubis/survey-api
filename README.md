@@ -1,4 +1,3 @@
-````markdown
 # 📚 Dokumentasi API Survey Mahasiswa
 
 ![Laravel](https://img.shields.io/badge/Laravel-12-red?style=flat-square&logo=laravel)
@@ -106,7 +105,10 @@ Pastikan sudah terinstall:
 git clone https://github.com/username/survey-api.git
 cd survey-api
 ```
-````
+
+```
+
+```
 
 #### 2. Install Dependencies
 
