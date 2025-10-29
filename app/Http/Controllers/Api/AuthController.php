@@ -66,10 +66,11 @@ class AuthController extends Controller
         $lowerEmail = mb_strtolower($identifier);
 
         // Cari user baik berdasarkan email (case-insensitive) maupun NIM
-        $user = User::where(function ($q) use ($lowerEmail, $identifier) {
-            $q->whereRaw('LOWER(email) = ?', [$lowerEmail])
-                ->orWhere('nim', $identifier);
-        })->first();
+        $user = User::select('id', 'uuid', 'nama', 'email', 'role', 'nim', 'jurusan', 'password')
+            ->where(function ($q) use ($lowerEmail, $identifier) {
+                $q->whereRaw('LOWER(email) = ?', [$lowerEmail])
+                    ->orWhere('nim', $identifier);
+            })->first();
 
         if (!$user) {
             throw ValidationException::withMessages([
@@ -88,11 +89,14 @@ class AuthController extends Controller
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
+        // Data response yang dikembalikan ke client
+        $userData = $user->only(['uuid', 'nama', 'email', 'role', 'nim', 'jurusan']);
+
         return response()->json([
             'success' => true,
             'message' => 'Login berhasil.',
             'data' => [
-                'user'  => $user,
+                'user'  => $userData,
                 'token' => $token,
             ],
         ], Response::HTTP_OK);

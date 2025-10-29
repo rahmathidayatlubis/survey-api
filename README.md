@@ -357,18 +357,14 @@ Base URL: `http://localhost:8000/api`
     "message": "Login berhasil.",
     "data": {
         "user": {
-            "id": 4,
-            "uuid": "xxx-xxxxxx-xxxxxx-xxxxxx-xxxxx",
-            "nim": "21220019",
+            "uuid": "a919a045-357a-4761-8d54-bd7358d7a783",
             "nama": "Rahmat Hidayat Lubis",
             "email": "rahmattlubis86@gmail.com",
-            "tanggal_lahir": "2000-10-09T17:00:00.000000Z",
-            "jurusan": "Sistem Informasi",
             "role": "mahasiswa",
-            "created_at": "2025-10-28T02:29:12.000000Z",
-            "updated_at": "2025-10-28T02:29:12.000000Z"
+            "nim": "21220019",
+            "jurusan": "Sistem Informasi"
         },
-        "token": "2|xxxxxxxxxxxxxxxxxxxxxxxxxx"
+        "token": "3|m1GW9RFOrpEPVMbiIoVQ4SOmndQZSrXAilHAVAUGd0fa262e"
     }
 }
 ```
