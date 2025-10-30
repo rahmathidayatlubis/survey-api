@@ -442,42 +442,71 @@
     {{-- Sidebar --}}
     <div class="sidebar">
         <div class="sidebar-brand">
-            <img src="{{ asset('img/image.png') }}" alt="Logo">
+            <img src="{{ asset('img/image.png') }}" alt="Logo Sistem Survey">
         </div>
         
         <div class="sidebar-menu">
-            <div class="menu-section-title">Menu Utama</div>
-            <a href="{{ route('admin.dashboard') }}" 
-            class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
-                <i class="fas fa-home"></i>
-                <span>Dashboard Utama</span>
-            </a>
 
-            <a href="{{ route('admin.user') }}" 
-            class="{{ request()->routeIs('admin.user') ? 'active' : '' }}">
-                <i class="fas fa-users"></i>
-                <span>Data User</span>
-            </a>
+            {{-- LOGIKA MENU BERDASARKAN ROLE --}}
+            @auth
+                @if (Auth::user()->role === 'admin')
+                    {{-- MENU UNTUK ADMIN --}}
+                    <div class="menu-section-title">Menu Admin</div>
+                    <a href="{{ route('admin.dashboard') }}" 
+                    class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Dashboard Utama</span>
+                    </a>
 
-            <a href="{{ route('admin.survey') }}" 
-            class="{{ request()->routeIs('admin.survey') ? 'active' : '' }}">
-                <i class="fas fa-clipboard-list"></i>
-                <span>Data Survey</span>
-            </a>
-            
-            <div class="menu-section-title">Lainnya</div>
-            <a href="{{ route('admin.laporan') }}" 
-            class="{{ request()->routeIs('admin.laporan') ? 'active' : '' }}">
-                <i class="fas fa-chart-bar"></i>
-                <span>Data Laporan</span>
-            </a>
+                    <a href="{{ route('admin.user') }}" 
+                    class="{{ request()->routeIs('admin.user') ? 'active' : '' }}">
+                        <i class="fas fa-users"></i>
+                        <span>Data User</span>
+                    </a>
 
-            <a href="{{ route('admin.hasil') }}" 
-            class="{{ request()->routeIs('admin.hasil') ? 'active' : '' }}">
-                <i class="fas fa-file-alt"></i>
-                <span>Data Hasil</span>
-            </a>
-        </div>
+                    <a href="{{ route('admin.survey') }}" 
+                    class="{{ request()->routeIs('admin.survey') ? 'active' : '' }}">
+                        <i class="fas fa-clipboard-list"></i>
+                        <span>Data Survey</span>
+                    </a>
+                    
+                    <div class="menu-section-title">Laporan & Hasil</div>
+                    <a href="{{ route('admin.laporan') }}" 
+                    class="{{ request()->routeIs('admin.laporan') ? 'active' : '' }}">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Data Laporan</span>
+                    </a>
+
+                    <a href="{{ route('admin.hasil') }}" 
+                    class="{{ request()->routeIs('admin.hasil') ? 'active' : '' }}">
+                        <i class="fas fa-file-alt"></i>
+                        <span>Data Hasil</span>
+                    </a>
+
+                @elseif (Auth::user()->role === 'mahasiswa')
+                    {{-- MENU UNTUK MAHASISWA --}}
+                    <div class="menu-section-title">Menu Mahasiswa</div>
+                    <a href="{{ route('mahasiswa.dashboard') }}" 
+                    class="{{ request()->routeIs('mahasiswa.dashboard') ? 'active' : '' }}">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>Dashboard Saya</span>
+                    </a>
+
+                    <a href="{{ route('mahasiswa.survey') }}" 
+                    class="{{ request()->routeIs('mahasiswa.survey') ? 'active' : '' }}">
+                        <i class="fas fa-poll-h"></i>
+                        <span>Isi Survey</span>
+                    </a>
+                    
+                    <a href="{{ route('mahasiswa.riwayat') }}" 
+                    class="{{ request()->routeIs('mahasiswa.riwayat') ? 'active' : '' }}">
+                        <i class="fas fa-history"></i>
+                        <span>Riwayat Partisipasi</span>
+                    </a>
+                    
+                @endif
+            @endauth
+        </div>  
     </div>
 
     {{-- Content Wrapper --}}
@@ -496,10 +525,17 @@
             @auth
             <div class="user-profile">
                 <div class="dropdown">
+                    {{-- Menggunakan 'nama' untuk avatar dan display name --}}
+                    @php
+                        // Cek apakah 'nama' tersedia, jika tidak pakai 'name'
+                        $displayName = Auth::user()->nama ?? Auth::user()->name ?? 'User';
+                        $avatarChar = strtoupper(substr($displayName, 0, 1));
+                    @endphp
+
                     <a class="dropdown-toggle d-flex align-items-center gap-2" href="#" role="button" data-bs-toggle="dropdown">
-                        <div class="avatar">{{ strtoupper(substr(Auth::user()->name, 0, 1)) }}</div>
+                        <div class="avatar">{{ $avatarChar }}</div>
                         <div class="d-none d-md-block">
-                            <div class="user-name">{{ Auth::user()->name }}</div>
+                            <div class="user-name">{{ $displayName }}</div>
                             <span class="user-role">{{ Auth::user()->role }}</span>
                         </div>
                     </a>
@@ -527,7 +563,6 @@
                                     <i class="fas fa-sign-out-alt me-2"></i> Logout
                                 </button>
                             </form>
-
                         </li>
                     </ul>
                 </div>
@@ -543,7 +578,6 @@
         {{-- Footer --}}
         <footer>
             <div>
-              
                 Created by <strong>Back End Developer - PT Siantar Codes Academy</strong> © {{ date('Y') }}
             </div>
         </footer>
@@ -557,21 +591,22 @@
         // Real-time Clock
         function updateClock() {
             const now = new Date();
+            
+            // Format waktu
             const hours = String(now.getHours()).padStart(2, '0');
             const minutes = String(now.getMinutes()).padStart(2, '0');
             const seconds = String(now.getSeconds()).padStart(2, '0');
             const timeString = `${hours}:${minutes}:${seconds}`;
+            
+            // Format tanggal
             const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
             const dateString = now.toLocaleDateString('id-ID', options);
-
+            
             document.getElementById('clock').textContent = timeString;
             document.getElementById('date').textContent = dateString;
         }
-
-        updateClock();
-        setInterval(updateClock, 1000);
-
-        // ✅ SweetAlert2 Konfirmasi Logout
+        
+        // SweetAlert2 Konfirmasi Logout
         document.addEventListener('DOMContentLoaded', function () {
             const logoutBtn = document.getElementById('logout-btn');
             if (logoutBtn) {
@@ -598,32 +633,11 @@
                     });
                 });
             }
+
+            // Update clock
+            updateClock();
+            setInterval(updateClock, 1000);
         });
-    </script>
-
-
-    <script>
-        // Real-time Clock
-        function updateClock() {
-            const now = new Date();
-            
-            // Format waktu
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            const seconds = String(now.getSeconds()).padStart(2, '0');
-            const timeString = `${hours}:${minutes}:${seconds}`;
-            
-            // Format tanggal
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            const dateString = now.toLocaleDateString('id-ID', options);
-            
-            document.getElementById('clock').textContent = timeString;
-            document.getElementById('date').textContent = dateString;
-        }
-        
-        // Update setiap detik
-        updateClock();
-        setInterval(updateClock, 1000);
     </script>
 </body>
 </html>

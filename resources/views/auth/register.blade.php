@@ -6,6 +6,21 @@
     <title>Register - Sistem Survey</title>
     <link rel="icon" type="image/png" href="{{ asset('img/image.png') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <style>
+        /* Gaya dasar untuk error, sesuaikan dengan CSS Anda */
+        .error-message {
+            color: #e3342f; /* Warna merah Laravel default */
+            font-size: 0.85em;
+            margin-top: 5px;
+        }
+        .form-row {
+            display: flex;
+            gap: 20px; /* Jarak antar kolom, sesuaikan jika perlu */
+        }
+        .form-row > .form-group {
+            flex: 1; /* Agar kolom membagi ruang secara merata */
+        }
+    </style>
 </head>
 <body>
     <div class="background-decoration">
@@ -16,7 +31,6 @@
 
     <div class="login-wrapper">
         <div class="login-container">
-            <!-- Left Side - Branding -->
             <div class="brand-section">
                 <div class="brand-content">
                     <div class="logo-container">
@@ -44,7 +58,6 @@
                 </div>
             </div>
 
-            <!-- Right Side - Register Form -->
             <div class="form-section">
                 <div class="form-content">
                     <div class="form-header">
@@ -52,23 +65,55 @@
                         <p>Lengkapi data diri Anda untuk mendaftar</p>
                     </div>
 
-                    <form action="#" method="POST" class="login-form register-form">
+                    {{-- Menambahkan penanganan pesan sukses dari controller --}}
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert" style="color: green; margin-bottom: 15px;">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+
+                    {{-- Ubah action ke route POST register Anda --}}
+                    <form action="{{ route('register.post') }}" method="POST" class="login-form register-form">
                         @csrf
                         
                         <div class="form-group">
-                            <label for="name">
+                            <label for="nim">
+                                <span class="label-icon">🆔</span>
+                                Nomor Induk Mahasiswa (NIM)
+                            </label>
+                            <div class="input-group">
+                                <input 
+                                    type="text" 
+                                    id="nim" 
+                                    name="nim" 
+                                    placeholder="Masukkan NIM Anda" 
+                                    required
+                                    value="{{ old('nim') }}"
+                                    autocomplete="off">
+                            </div>
+                            @error('nim')
+                                <div class="error-message">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nama">
                                 <span class="label-icon">👤</span>
                                 Nama Lengkap
                             </label>
                             <div class="input-group">
                                 <input 
                                     type="text" 
-                                    id="name" 
-                                    name="name" 
+                                    id="nama" 
+                                    name="nama" {{-- Ubah dari 'name' menjadi 'nama' --}}
                                     placeholder="Masukkan nama lengkap" 
                                     required
+                                    value="{{ old('nama') }}"
                                     autocomplete="name">
                             </div>
+                            @error('nama')
+                                <div class="error-message">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="form-group">
@@ -83,7 +128,51 @@
                                     name="email" 
                                     placeholder="nama@example.com" 
                                     required
+                                    value="{{ old('email') }}"
                                     autocomplete="email">
+                            </div>
+                            @error('email')
+                                <div class="error-message">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="tanggal_lahir">
+                                    <span class="label-icon">📅</span>
+                                    Tanggal Lahir
+                                </label>
+                                <div class="input-group">
+                                    <input 
+                                        type="date" 
+                                        id="tanggal_lahir" 
+                                        name="tanggal_lahir" 
+                                        required
+                                        value="{{ old('tanggal_lahir') }}"
+                                        autocomplete="bday">
+                                </div>
+                                @error('tanggal_lahir')
+                                    <div class="error-message">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <label for="jurusan">
+                                    <span class="label-icon">📚</span>
+                                    Jurusan (Opsional)
+                                </label>
+                                <div class="input-group">
+                                    <input 
+                                        type="text" 
+                                        id="jurusan" 
+                                        name="jurusan" 
+                                        placeholder="Contoh: Teknik Informatika" 
+                                        value="{{ old('jurusan') }}"
+                                        autocomplete="off">
+                                </div>
+                                @error('jurusan')
+                                    <div class="error-message">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
 
@@ -102,6 +191,9 @@
                                         required
                                         autocomplete="new-password">
                                 </div>
+                                @error('password')
+                                    <div class="error-message">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="form-group">
@@ -127,6 +219,9 @@
                                 <input type="checkbox" name="terms" required>
                                 <span>Saya setuju dengan <a href="/terms" class="link-inline">Syarat & Ketentuan</a> dan <a href="/privacy" class="link-inline">Kebijakan Privasi</a></span>
                             </label>
+                            @error('terms')
+                                <div class="error-message">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <button type="submit" class="btn-login">
@@ -136,7 +231,8 @@
 
                         <div class="register-link">
                             Sudah punya akun? 
-                            <a href="/">Login di sini</a>
+                            {{-- Ganti '/' dengan route login yang sesuai --}}
+                            <a href="{{ route('login') }}">Login di sini</a> 
                         </div>
                     </form>
                 </div>
