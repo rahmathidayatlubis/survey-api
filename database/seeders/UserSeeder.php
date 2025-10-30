@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Faker\Factory as Faker;
 
 class UserSeeder extends Seeder
 {
@@ -28,24 +29,24 @@ class UserSeeder extends Seeder
         // ==========================================
         // BUAT DATA MAHASISWA
         // ==========================================
-        User::create([
-            'nim' => '2021001',
-            'nama' => 'Budi Santoso',
-            'email' => 'budi@mahasiswa.com',
-            'tanggal_lahir' => '2000-10-18',
-            'jurusan' => 'Teknik Informatika',
-            'password' => Hash::make('18102000'),
-            'role' => 'mahasiswa',
-        ]);
+    $faker = Faker::create('id_ID'); // gunakan locale Indonesia
 
-        User::create([
-            'nim' => '2021002',
-            'nama' => 'Siti Nurhaliza',
-            'email' => 'siti@mahasiswa.com',
-            'tanggal_lahir' => '2001-05-25',
-            'jurusan' => 'Sistem Informasi',
-            'password' => Hash::make('25052001'),
-            'role' => 'mahasiswa',
-        ]);
+        for ($i = 1; $i <= 20; $i++) {
+            User::create([
+                'nim' => '2021' . str_pad($i, 3, '0', STR_PAD_LEFT), // contoh: 2021001, 2021002, dst
+                'nama' => $faker->name,
+                'email' => $faker->unique()->safeEmail,
+                'tanggal_lahir' => $faker->date('Y-m-d', '2003-12-31'),
+                'jurusan' => $faker->randomElement([
+                    'Teknik Informatika',
+                    'Sistem Informasi',
+                    'Teknik Komputer',
+                    'Manajemen Informatika'
+                ]),
+                'password' => Hash::make('123456'), // default password
+                'role' => 'mahasiswa',
+                'uuid' => Str::uuid(),
+            ]);
+        }
     }
 }
