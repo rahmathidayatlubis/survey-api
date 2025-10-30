@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WebAuthController;
 
@@ -17,10 +18,16 @@ Route::middleware('auth')->group(function () {
         return "Dashboard Mahasiswa";
     })->name('mahasiswa.dashboard');
 
-    Route::get('/admin/data-mahasiswa', function () {
-        // Mengarahkan ke view: resources/views/admin/user.blade.php
-        return view('admin.user'); 
-    })->name('admin.user');
+Route::resource('/admin/data-mahasiswa', UserController::class)
+    ->names([
+        'index' => 'admin.user',
+        'create' => 'admin.user.create',
+        'store' => 'admin.user.store',
+        'show' => 'admin.user.show',
+        'edit' => 'admin.user.edit',
+        'update' => 'admin.user.update',
+        'destroy' => 'admin.user.destroy',
+    ]);
 
     Route::get('/admin/data-survey', function () {
         // Mengarahkan ke view: resources/views/admin/user.blade.php

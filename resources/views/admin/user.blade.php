@@ -1,9 +1,24 @@
 @extends('layouts.dashboard')
 
 @section('content')
+    {{-- Pesan Sukses --}}
+    @if (session('success'))
+        <div class="alert alert-success" style="background: #d4edda; color: #155724; padding: 10px; border-radius: 5px;">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    {{-- Pesan Error --}}
+    @if (session('error'))
+        <div class="alert alert-danger" style="background: #f8d7da; color: #721c24; padding: 10px; border-radius: 5px;">
+            {{ session('error') }}
+        </div>
+    @endif
+
     <div class="dashboard-container">
         {{-- Header Section (Modernized) --}}
-        <div class="modern-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); box-shadow: 0 12px 24px rgba(102, 126, 234, 0.4);">
+        <div class="modern-header"
+            style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); box-shadow: 0 12px 24px rgba(102, 126, 234, 0.4);">
             <div class="header-content">
                 <div>
                     <h2 class="header-title">
@@ -13,10 +28,11 @@
                     <p class="header-subtitle">Kelola informasi dan rekam jejak akademik mahasiswa dengan mudah.</p>
                 </div>
                 {{-- Tombol ini sekarang menggunakan <button> dan tidak memiliki route() atau href --}}
-                <button type="button" class="modern-action-btn">
+                <a href="{{ route('admin.user.create') }}" class="modern-action-btn" style="text-decoration:none;">
                     <i class="fas fa-plus-circle"></i>
                     <span>Tambah Mahasiswa Baru</span>
-                </button>
+                </a>
+
             </div>
         </div>
 
@@ -47,137 +63,99 @@
                                     <th style="width: 50px;">No.</th>
                                     <th>Nama Lengkap</th>
                                     <th>NIM</th>
+                                    <th>Email</th>
                                     <th>Program Studi</th>
-                                    <th>Tahun Angkatan</th>
+                                    <th>Tanggal Lahir</th>
+                                    <th>Role</th>
                                     <th>Status</th>
                                     <th style="width: 120px; text-align: center;">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1.</td>
-                                    <td class="nama-mahasiswa">
-                                        <div class="profile-meta">
-                                            <i class="fas fa-user-circle avatar-icon"></i>
-                                            **Risa Maharani**
-                                        </div>
-                                    </td>
-                                    <td>102019001</td>
-                                    <td>Teknik Informatika</td>
-                                    <td>2019</td>
-                                    <td><span class="modern-badge success">Aktif</span></td>
-                                    <td class="action-cell">
-                                        <div class="action-buttons">
-                                            <button type="button" class="action-icon-btn tooltip-btn" data-tooltip="Lihat Detail">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                            <button type="button" class="action-icon-btn tooltip-btn" data-tooltip="Edit Data">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                            <button type="button" class="action-icon-btn tooltip-btn delete-btn" data-tooltip="Hapus">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2.</td>
-                                    <td class="nama-mahasiswa">
-                                        <div class="profile-meta">
-                                            <i class="fas fa-user-circle avatar-icon"></i>
-                                            **Bayu Adhitama**
-                                        </div>
-                                    </td>
-                                    <td>103020045</td>
-                                    <td>Manajemen Bisnis</td>
-                                    <td>2020</td>
-                                    <td><span class="modern-badge success">Aktif</span></td>
-                                    <td class="action-cell">
-                                        <div class="action-buttons">
-                                            <button type="button" class="action-icon-btn tooltip-btn" data-tooltip="Lihat Detail">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                            <button type="button" class="action-icon-btn tooltip-btn" data-tooltip="Edit Data">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                            <button type="button" class="action-icon-btn tooltip-btn delete-btn" data-tooltip="Hapus">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>3.</td>
-                                    <td class="nama-mahasiswa">
-                                        <div class="profile-meta">
-                                            <i class="fas fa-user-circle avatar-icon"></i>
-                                            **Siti Nurhaliza**
-                                        </div>
-                                    </td>
-                                    <td>101021008</td>
-                                    <td>Akuntansi</td>
-                                    <td>2021</td>
-                                    <td><span class="modern-badge warning">Cuti</span></td>
-                                    <td class="action-cell">
-                                        <div class="action-buttons">
-                                            <button type="button" class="action-icon-btn tooltip-btn" data-tooltip="Lihat Detail">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                            <button type="button" class="action-icon-btn tooltip-btn" data-tooltip="Edit Data">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                            <button type="button" class="action-icon-btn tooltip-btn delete-btn" data-tooltip="Hapus">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>4.</td>
-                                    <td class="nama-mahasiswa">
-                                        <div class="profile-meta">
-                                            <i class="fas fa-user-circle avatar-icon"></i>
-                                            **Andi Pratama**
-                                        </div>
-                                    </td>
-                                    <td>102022067</td>
-                                    <td>Teknik Informatika</td>
-                                    <td>2022</td>
-                                    <td><span class="modern-badge success">Aktif</span></td>
-                                    <td class="action-cell">
-                                        <div class="action-buttons">
-                                            <button type="button" class="action-icon-btn tooltip-btn" data-tooltip="Lihat Detail">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                            <button type="button" class="action-icon-btn tooltip-btn" data-tooltip="Edit Data">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                            <button type="button" class="action-icon-btn tooltip-btn delete-btn" data-tooltip="Hapus">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
+                                @forelse($data as $index => $datas)
+                                    <tr>
+                                        <td>{{ $data->firstItem() + $index }}</td>
+                                        <td class="nama-mahasiswa">
+                                            <div class="profile-meta">
+                                                <i class="fas fa-user-circle avatar-icon"></i>
+                                                {{ $datas->nama }}
+                                            </div>
+                                        </td>
+                                        <td>{{ $datas->nim }}</td>
+                                        <td>{{ $datas->email }}</td>
+                                        <td>{{ $datas->jurusan }}</td>
+                                        <td>{{ date('d F Y', strtotime($datas->tanggal_lahir)) }}</td>
+                                        <td>{{ $datas->role }}</td>
+                                        <td><span class="modern-badge success">Aktif</span></td>
+                                        <td class="action-cell">
+                                            <div class="action-buttons">
+                                                {{-- Tombol Show --}}
+                                                <a href="{{ route('admin.user.show', $datas->id) }}"
+                                                    class="action-icon-btn tooltip-btn" data-tooltip="Lihat Detail">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+
+                                                {{-- Tombol Edit --}}
+                                                <a href="{{ route('admin.user.edit', $datas->id) }}"
+                                                    class="action-icon-btn tooltip-btn" data-tooltip="Edit Data">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+
+                                                {{-- Tombol Delete --}}
+                                                <form action="{{ route('admin.user.destroy', $datas->id) }}" method="POST"
+                                                    style="display:inline;"
+                                                    onsubmit="return confirm('Yakin ingin menghapus data ini?');">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="action-icon-btn tooltip-btn delete-btn"
+                                                        data-tooltip="Hapus">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="9" class="text-center">Tidak ada data mahasiswa.</td>
+                                    </tr>
+                                @endforelse
                             </tbody>
+
                         </table>
                     </div>
                 </div>
+
+
                 <div class="modern-card-footer">
-                    <span class="pagination-info">Menampilkan 1 sampai 10 dari 245 entri</span>
+                    <span class="pagination-info">
+                        Menampilkan {{ $data->firstItem() }} sampai {{ $data->lastItem() }} dari {{ $data->total() }}
+                        entri
+                    </span>
                     <div class="pagination-controls">
-                        <button type="button" class="pagination-btn"><i class="fas fa-angle-left"></i> Previous</button>
-                        <button type="button" class="pagination-btn active">1</button>
-                        <button type="button" class="pagination-btn">2</button>
-                        <button type="button" class="pagination-btn">3</button>
-                        <button type="button" class="pagination-btn">Next <i class="fas fa-angle-right"></i></button>
+                        {{ $data->links() }}
                     </div>
                 </div>
+
+
+
             </div>
         </div>
     </div>
 
-    {{-- CSS Styles for Modern Look (Same as before) --}}
+    {{-- CSS Styles for Modern Look --}}
     <style>
+
+
+ /* Spacing for pagination links */
+        .pagination-controls nav {
+            display: flex;
+            gap: 8px;
+        }
+
+        .pagination-controls .flex {
+            gap: 8px;
+        }
         /* General Layout - using your existing .dashboard-container and .content-grid-full */
         .content-grid-full {
             display: grid;
@@ -195,7 +173,8 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+            flex-wrap: wrap;
+            /* Allow wrapping on smaller screens */
             gap: 20px;
         }
 
@@ -213,12 +192,12 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         .header-icon {
             font-size: 2rem;
-            color: rgba(255,255,255,0.8);
+            color: rgba(255, 255, 255, 0.8);
         }
 
         .header-subtitle {
@@ -232,7 +211,8 @@
             background-color: white;
             color: #667eea;
             padding: 12px 25px;
-            border: none; /* Make it look like a button */
+            border: none;
+            /* Make it look like a button */
             border-radius: 8px;
             font-weight: 600;
             font-size: 0.95rem;
@@ -242,13 +222,15 @@
             text-decoration: none;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            min-width: 200px; /* Ensure button has decent width */
+            min-width: 200px;
+            /* Ensure button has decent width */
             justify-content: center;
             cursor: pointer;
         }
 
         .modern-action-btn:hover {
-            background-color: #f0f4f8; /* Light gray on hover */
+            background-color: #f0f4f8;
+            /* Light gray on hover */
             color: #5a67d8;
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
@@ -259,17 +241,20 @@
             background-color: #ffffff;
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-            overflow: hidden; /* For table rounded corners */
+            overflow: hidden;
+            /* For table rounded corners */
         }
 
         .modern-card-header {
             padding: 24px 30px;
-            border-bottom: 1px solid #edf2f7; /* Lighter border */
+            border-bottom: 1px solid #edf2f7;
+            /* Lighter border */
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 15px; /* Spacing for wrap */
+            gap: 15px;
+            /* Spacing for wrap */
         }
 
         .modern-card-title {
@@ -291,18 +276,22 @@
             align-items: center;
             gap: 15px;
             flex-wrap: wrap;
-            justify-content: flex-end; /* Align actions to the right */
+            justify-content: flex-end;
+            /* Align actions to the right */
         }
 
         .search-box {
             position: relative;
-            flex-grow: 1; /* Allow search to take more space */
-            max-width: 300px; /* Limit search width */
+            flex-grow: 1;
+            /* Allow search to take more space */
+            max-width: 300px;
+            /* Limit search width */
         }
 
         .search-input {
             width: 100%;
-            padding: 10px 15px 10px 40px; /* Left padding for icon */
+            padding: 10px 15px 10px 40px;
+            /* Left padding for icon */
             border: 1px solid #cbd5e1;
             border-radius: 8px;
             font-size: 0.9rem;
@@ -343,7 +332,8 @@
         }
 
         .modern-card-body {
-            padding: 0; /* Table will fill the body */
+            padding: 0;
+            /* Table will fill the body */
         }
 
         /* Modern Data Table */
@@ -354,10 +344,12 @@
             color: #4a5568;
         }
 
-        .modern-data-table th, .modern-data-table td {
+        .modern-data-table th,
+        .modern-data-table td {
             padding: 18px 30px;
             text-align: left;
-            border-bottom: 1px solid #edf2f7; /* Light horizontal lines */
+            border-bottom: 1px solid #edf2f7;
+            /* Light horizontal lines */
         }
 
         .modern-data-table th {
@@ -370,11 +362,13 @@
         }
 
         .modern-data-table tbody tr:hover {
-            background-color: #f0f4f8; /* Subtle hover effect */
+            background-color: #f0f4f8;
+            /* Subtle hover effect */
         }
-        
+
         .modern-data-table tbody tr:last-child td {
-            border-bottom: none; /* No border for last row */
+            border-bottom: none;
+            /* No border for last row */
         }
 
         .profile-meta {
@@ -401,13 +395,17 @@
         }
 
         .modern-badge.success {
-            background-color: #d1fae5; /* Light green */
-            color: #065f46; /* Darker green text */
+            background-color: #d1fae5;
+            /* Light green */
+            color: #065f46;
+            /* Darker green text */
         }
 
         .modern-badge.warning {
-            background-color: #fef3c7; /* Light yellow */
-            color: #92400e; /* Darker yellow/orange text */
+            background-color: #fef3c7;
+            /* Light yellow */
+            color: #92400e;
+            /* Darker yellow/orange text */
         }
 
         /* Action Buttons */
@@ -430,7 +428,8 @@
             padding: 6px;
             border-radius: 6px;
             transition: all 0.2s ease;
-            position: relative; /* For tooltip */
+            position: relative;
+            /* For tooltip */
         }
 
         .action-icon-btn:hover {
@@ -447,7 +446,8 @@
         .tooltip-btn::before {
             content: attr(data-tooltip);
             position: absolute;
-            bottom: 120%; /* Position above the button */
+            bottom: 120%;
+            /* Position above the button */
             left: 50%;
             transform: translateX(-50%);
             background-color: #334155;
@@ -488,6 +488,24 @@
             gap: 8px;
         }
 
+        /* FIX: Pagination Arrow Icons Size */
+        .pagination-controls svg {
+            width: 14px !important;
+            height: 14px !important;
+            vertical-align: middle;
+        }
+
+        .pagination-controls .page-link svg {
+            width: 14px !important;
+            height: 14px !important;
+        }
+
+        /* Override Laravel default pagination styles */
+        .pagination-controls nav svg {
+            width: 14px !important;
+            height: 14px !important;
+        }
+
         .pagination-btn {
             background-color: #f0f4f8;
             color: #64748b;
@@ -520,17 +538,21 @@
             .modern-header {
                 padding: 25px 25px;
             }
+
             .header-content {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 15px;
             }
+
             .header-title {
                 font-size: 1.8rem;
             }
+
             .header-subtitle {
                 font-size: 0.9rem;
             }
+
             .modern-action-btn {
                 width: 100%;
                 min-width: unset;
@@ -541,22 +563,26 @@
                 align-items: flex-start;
                 padding: 20px 25px;
             }
+
             .header-actions {
                 width: 100%;
                 flex-direction: column;
                 align-items: stretch;
                 gap: 10px;
             }
+
             .search-box {
                 max-width: none;
                 width: 100%;
             }
+
             .btn-export {
                 width: 100%;
                 justify-content: center;
             }
 
-            .modern-data-table th, .modern-data-table td {
+            .modern-data-table th,
+            .modern-data-table td {
                 padding: 15px 20px;
             }
 
@@ -564,6 +590,7 @@
                 flex-direction: column;
                 padding: 20px 25px;
             }
+
             .pagination-controls {
                 flex-wrap: wrap;
                 justify-content: center;
@@ -571,30 +598,39 @@
         }
 
         @media (max-width: 480px) {
-            .modern-data-table th, .modern-data-table td {
+
+            .modern-data-table th,
+            .modern-data-table td {
                 font-size: 0.85rem;
                 padding: 12px 15px;
             }
+
             .header-title {
                 font-size: 1.5rem;
             }
+
             .header-icon {
                 font-size: 1.3rem;
             }
+
             .modern-card-title {
                 font-size: 1.1rem;
             }
+
             .icon-primary {
                 font-size: 1.2rem;
             }
+
             .modern-badge {
                 font-size: 0.7rem;
                 padding: 4px 8px;
             }
+
             .action-icon-btn {
                 font-size: 1rem;
                 padding: 4px;
             }
+
             .pagination-btn {
                 font-size: 0.8rem;
                 padding: 6px 10px;
