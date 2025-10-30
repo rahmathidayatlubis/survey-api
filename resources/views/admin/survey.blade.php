@@ -7,10 +7,10 @@
             <div class="header-content">
                 <div>
                     <h2 class="header-title">
-                        <i class="fas fa-graduation-cap header-icon"></i>
+                        <i class="fas fa-chart-line header-icon"></i> 
                         Data Survey
                     </h2>
-                    <p class="header-subtitle">Kelola informasi data survey dengan mudah.</p>
+                    <p class="header-subtitle">Kelola informasi dan lihat detail hasil dari setiap survey.</p>
                 </div>
                 {{-- Tombol ini sekarang menggunakan <button> dan tidak memiliki route() atau href --}}
                 <button type="button" class="modern-action-btn">
@@ -20,23 +20,23 @@
             </div>
         </div>
 
-        {{-- Main Content - Mahasiswa Table --}}
+        {{-- Main Content - Survey Table --}}
         <div class="content-grid-full">
             <div class="modern-card">
                 <div class="modern-card-header">
                     <h3 class="modern-card-title">
-                        <i class="fas fa-users-class icon-primary"></i>
-                        Daftar Survey Aktif
+                        <i class="fas fa-poll icon-primary"></i> 
+                        Daftar Survey
                     </h3>
                     <div class="header-actions">
                         <div class="search-box">
                             <i class="fas fa-search search-icon"></i>
-                            <input type="text" placeholder="Cari mahasiswa..." class="search-input">
+                            <input type="text" placeholder="Cari survey..." class="search-input">
                         </div>
-                        <a href="#" class="btn-export"> {{-- Menggunakan href="#" agar non-fungsional --}}
+                        <!-- <a href="#" class="btn-export">
                             <i class="fas fa-file-export"></i>
                             <span>Export</span>
-                        </a>
+                        </a> -->
                     </div>
                 </div>
                 <div class="modern-card-body">
@@ -45,138 +45,86 @@
                             <thead>
                                 <tr>
                                     <th style="width: 50px;">No.</th>
-                                    <th>Nama Lengkap</th>
-                                    <th>NIM</th>
-                                    <th>Program Studi</th>
-                                    <th>Tahun Angkatan</th>
+                                    <th>Judul Survey</th>
+                                    <th>Deskripsi Singkat</th> {{-- KOLOM BARU --}}
+                                    <th>Periode</th>
+                                    <th style="text-align: center;">Jml. Pertanyaan</th>
+                                    <th style="text-align: center;">Jml. Responden</th>
                                     <th>Status</th>
                                     <th style="width: 120px; text-align: center;">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1.</td>
-                                    <td class="nama-mahasiswa">
-                                        <div class="profile-meta">
-                                            <i class="fas fa-user-circle avatar-icon"></i>
-                                            **Risa Maharani**
-                                        </div>
-                                    </td>
-                                    <td>102019001</td>
-                                    <td>Teknik Informatika</td>
-                                    <td>2019</td>
-                                    <td><span class="modern-badge success">Aktif</span></td>
-                                    <td class="action-cell">
-                                        <div class="action-buttons">
-                                            <button type="button" class="action-icon-btn tooltip-btn" data-tooltip="Lihat Detail">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                            <button type="button" class="action-icon-btn tooltip-btn" data-tooltip="Edit Data">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                            <button type="button" class="action-icon-btn tooltip-btn delete-btn" data-tooltip="Hapus">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2.</td>
-                                    <td class="nama-mahasiswa">
-                                        <div class="profile-meta">
-                                            <i class="fas fa-user-circle avatar-icon"></i>
-                                            **Bayu Adhitama**
-                                        </div>
-                                    </td>
-                                    <td>103020045</td>
-                                    <td>Manajemen Bisnis</td>
-                                    <td>2020</td>
-                                    <td><span class="modern-badge success">Aktif</span></td>
-                                    <td class="action-cell">
-                                        <div class="action-buttons">
-                                            <button type="button" class="action-icon-btn tooltip-btn" data-tooltip="Lihat Detail">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                            <button type="button" class="action-icon-btn tooltip-btn" data-tooltip="Edit Data">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                            <button type="button" class="action-icon-btn tooltip-btn delete-btn" data-tooltip="Hapus">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>3.</td>
-                                    <td class="nama-mahasiswa">
-                                        <div class="profile-meta">
-                                            <i class="fas fa-user-circle avatar-icon"></i>
-                                            **Siti Nurhaliza**
-                                        </div>
-                                    </td>
-                                    <td>101021008</td>
-                                    <td>Akuntansi</td>
-                                    <td>2021</td>
-                                    <td><span class="modern-badge warning">Cuti</span></td>
-                                    <td class="action-cell">
-                                        <div class="action-buttons">
-                                            <button type="button" class="action-icon-btn tooltip-btn" data-tooltip="Lihat Detail">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                            <button type="button" class="action-icon-btn tooltip-btn" data-tooltip="Edit Data">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                            <button type="button" class="action-icon-btn tooltip-btn delete-btn" data-tooltip="Hapus">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>4.</td>
-                                    <td class="nama-mahasiswa">
-                                        <div class="profile-meta">
-                                            <i class="fas fa-user-circle avatar-icon"></i>
-                                            **Andi Pratama**
-                                        </div>
-                                    </td>
-                                    <td>102022067</td>
-                                    <td>Teknik Informatika</td>
-                                    <td>2022</td>
-                                    <td><span class="modern-badge success">Aktif</span></td>
-                                    <td class="action-cell">
-                                        <div class="action-buttons">
-                                            <button type="button" class="action-icon-btn tooltip-btn" data-tooltip="Lihat Detail">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                            <button type="button" class="action-icon-btn tooltip-btn" data-tooltip="Edit Data">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                            <button type="button" class="action-icon-btn tooltip-btn delete-btn" data-tooltip="Hapus">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
+                                {{-- Pastikan variabel $surveys tersedia dari Controller --}}
+                                @forelse ($surveys as $survey)
+                                    <tr>
+                                        {{-- $loop->iteration untuk nomor urut yang dimulai dari 1 --}}
+                                        <td>{{ $loop->iteration }}.</td> 
+                                        <td class="nama-mahasiswa">
+                                            <div class="profile-meta">
+                                                <i class="fas fa-book-open avatar-icon"></i>
+                                                {{ $survey->judul }}
+                                            </div>
+                                        </td>
+                                        {{-- KOLOM DESKRIPSI BARU --}}
+                                        <td>
+                                            <span style="color: #64748b; font-size: 0.9rem;">
+                                                {{ Str::limit($survey->deskripsi, 150) }}
+                                            </span>
+                                        </td>
+                                        {{-- Asumsi Anda memiliki Carbon dan Str diakses/terimport dengan benar --}}
+                                        <td>{{ \Carbon\Carbon::parse($survey->tanggal_mulai)->format('d M y') }} - {{ \Carbon\Carbon::parse($survey->tanggal_selesai)->format('d M y') }}</td>
+                                        <td style="text-align: center;">{{ $survey->questions_count }}</td> 
+                                        <td style="text-align: center;">{{ $survey->responses_count }}</td> 
+                                        <td>
+                                            @if ($survey->is_active)
+                                                <span class="modern-badge success">Aktif</span>
+                                            @else
+                                                <span class="modern-badge warning">Tidak Aktif</span>
+                                            @endif
+                                        </td>
+                                        <td class="action-cell">
+                                            <div class="action-buttons">
+                                                <button type="button" class="action-icon-btn tooltip-btn" data-tooltip="Lihat Detail">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button type="button" class="action-icon-btn tooltip-btn" data-tooltip="Edit Data">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button type="button" class="action-icon-btn tooltip-btn delete-btn" data-tooltip="Hapus">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="8" style="text-align: center; padding: 20px;">
+                                            <i class="fas fa-info-circle"></i> Tidak ada data survey yang ditemukan.
+                                        </td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>
                 </div>
+                
+                {{-- FOOTER KARTU DENGAN PAGINATION --}}
                 <div class="modern-card-footer">
-                    <span class="pagination-info">Menampilkan 1 sampai 10 dari 245 entri</span>
+                    <span class="pagination-info">
+                        Menampilkan {{ $surveys->firstItem() ?? 0 }} sampai {{ $surveys->lastItem() ?? 0 }} dari {{ $surveys->total() ?? 0 }} entri
+                    </span>
                     <div class="pagination-controls">
-                        <button type="button" class="pagination-btn"><i class="fas fa-angle-left"></i> Previous</button>
-                        <button type="button" class="pagination-btn active">1</button>
-                        <button type="button" class="pagination-btn">2</button>
-                        <button type="button" class="pagination-btn">3</button>
-                        <button type="button" class="pagination-btn">Next <i class="fas fa-angle-right"></i></button>
+                        {{-- FIX: Menggunakan view pagination default Tailwind --}}
+                        {{ $surveys->links('pagination::tailwind') }} 
                     </div>
                 </div>
+                
             </div>
         </div>
     </div>
 
-    {{-- CSS Styles for Modern Look (Same as before) --}}
+    {{-- CSS Styles --}}
     <style>
         /* General Layout - using your existing .dashboard-container and .content-grid-full */
         .content-grid-full {
@@ -482,38 +430,18 @@
             font-size: 0.9rem;
             color: #64748b;
         }
-
-        .pagination-controls {
+        
+        /* Hapus style .pagination-controls karena Tailwind akan mengontrol */
+        /* .pagination-controls {
             display: flex;
             gap: 8px;
-        }
+        } */
 
-        .pagination-btn {
-            background-color: #f0f4f8;
-            color: #64748b;
-            padding: 8px 14px;
-            border: 1px solid #cbd5e1;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-        }
+        /* Hapus style .pagination-btn dan .active karena Tailwind akan mengontrol */
+        /* .pagination-btn { ... } */
+        /* .pagination-btn:hover:not(.active) { ... } */
+        /* .pagination-btn.active { ... } */
 
-        .pagination-btn:hover:not(.active) {
-            background-color: #e2e8f0;
-            border-color: #a0aec0;
-            color: #4a5568;
-        }
-
-        .pagination-btn.active {
-            background-color: #667eea;
-            color: white;
-            border-color: #667eea;
-            font-weight: 600;
-        }
 
         /* Responsive adjustments */
         @media (max-width: 768px) {
@@ -564,10 +492,10 @@
                 flex-direction: column;
                 padding: 20px 25px;
             }
-            .pagination-controls {
+            /* .pagination-controls {
                 flex-wrap: wrap;
                 justify-content: center;
-            }
+            } */
         }
 
         @media (max-width: 480px) {
@@ -595,10 +523,10 @@
                 font-size: 1rem;
                 padding: 4px;
             }
-            .pagination-btn {
+            /* .pagination-btn {
                 font-size: 0.8rem;
                 padding: 6px 10px;
-            }
+            } */
         }
     </style>
 @endsection

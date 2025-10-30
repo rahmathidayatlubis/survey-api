@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Survey</title>
-
+    <link rel="icon" type="image/png" href="{{ asset('img/image.png') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -545,7 +545,7 @@
                                 <i class="fas fa-user me-2"></i> Profile Saya
                             </a>
                         </li>
-                        <li>
+                        <!-- <li>
                             <a class="dropdown-item" href="#">
                                 <i class="fas fa-bell me-2"></i> Notifikasi
                             </a>
@@ -554,7 +554,7 @@
                             <a class="dropdown-item" href="#">
                                 <i class="fas fa-cog me-2"></i> Pengaturan
                             </a>
-                        </li>
+                        </li> -->
                         <li><hr class="dropdown-divider"></li>
                         <li>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST">

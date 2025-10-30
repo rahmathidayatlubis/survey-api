@@ -49,10 +49,10 @@
                             <i class="fas fa-search search-icon"></i>
                             <input type="text" placeholder="Cari mahasiswa..." class="search-input">
                         </div>
-                        <a href="#" class="btn-export"> {{-- Menggunakan href="#" agar non-fungsional --}}
+                        <!-- <a href="#" class="btn-export"> {{-- Menggunakan href="#" agar non-fungsional --}}
                             <i class="fas fa-file-export"></i>
                             <span>Export</span>
-                        </a>
+                        </a> -->
                     </div>
                 </div>
                 <div class="modern-card-body">
@@ -147,7 +147,7 @@
     <style>
 
 
- /* Spacing for pagination links */
+        /* Spacing for pagination links */
         .pagination-controls nav {
             display: flex;
             gap: 8px;
