@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WebAuthController;
 use App\Http\Controllers\MahasiswaController; // Wajib diimpor
 use App\Http\Controllers\SurveyController; // Wajib diimpor
+use App\Http\Controllers\AdminDashboardController;
 
 // --- 1. RUTE UNTUK PENGGUNA TAMU (GUEST) ---
 Route::get('/', [WebAuthController::class, 'showLoginForm'])->name('login');
@@ -43,7 +44,9 @@ Route::middleware('auth')->group(function () {
     // DASHBOARD & FITUR ADMIN
     Route::prefix('admin')->name('admin.')->group(function () {
         // Rute Admin Pengguna (sudah ada)
-        Route::get('/dashboard', function () { return view('admin.dashboard'); })->name('dashboard');
+        Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+
+        Route::get('/dashboard/activity-data', [AdminDashboardController::class, 'getActivityData'])->name('dashboard.activity.data'); // <<< INI YANG HILANG
         Route::get('/data-mahasiswa', [UserController::class, 'index'])->name('user');
         Route::get('/user/create', [UserController::class, 'create'])->name('user.create');
         Route::post('/user/store', [UserController::class, 'store'])->name('user.store');
@@ -75,6 +78,7 @@ Route::middleware('auth')->group(function () {
         // 7. Destroy: Hapus Data (admin.survey.destroy)
         Route::delete('/data-survey/{uuid}/destroy', [SurveyController::class, 'destroy'])->name('survey.destroy');
         
+
         // Rute Admin lainnya
         Route::get('/data-laporan', function () { return view('admin.laporan'); })->name('laporan');
         Route::get('/data-hasil', function () { return view('admin.hasil'); })->name('hasil');

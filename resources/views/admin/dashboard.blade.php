@@ -6,7 +6,8 @@
         <div class="welcome-section">
             <div class="welcome-content">
                 <div>
-                    <h2 class="welcome-title">Selamat Datang, {{ Auth::user()->name }}! 👋</h2>
+                    {{-- Menggunakan 'nama' untuk user terautentikasi --}}
+                    <h2 class="welcome-title">Selamat Datang, {{ Auth::user()->nama }}! 👋</h2>
                     <p class="welcome-subtitle">Kelola dan pantau semua survey Anda dalam satu dashboard</p>
                 </div>
                 <div class="welcome-badge">
@@ -16,17 +17,19 @@
             </div>
         </div>
 
-        {{-- Stats Cards --}}
+        {{---
+        Stats Cards (Real Data)
+        ---}}
         <div class="stats-grid">
             <div class="stat-card stat-primary">
                 <div class="stat-icon">
                     <i class="fas fa-clipboard-list"></i>
                 </div>
                 <div class="stat-content">
-                    <h3 class="stat-number">245</h3>
+                    <h3 class="stat-number">{{ $totalSurveys }}</h3>
                     <p class="stat-label">Total Survey</p>
                     <span class="stat-change positive">
-                        <i class="fas fa-arrow-up"></i> 12% dari bulan lalu
+                        <i class="fas fa-arrow-up"></i> Data Akurat
                     </span>
                 </div>
             </div>
@@ -36,10 +39,10 @@
                     <i class="fas fa-users"></i>
                 </div>
                 <div class="stat-content">
-                    <h3 class="stat-number">1,847</h3>
-                    <p class="stat-label">Total Responden</p>
+                    <h3 class="stat-number">{{ $totalRespondents }}</h3>
+                    <p class="stat-label">Total Responden Unik</p>
                     <span class="stat-change positive">
-                        <i class="fas fa-arrow-up"></i> 8% dari bulan lalu
+                        <i class="fas fa-arrow-up"></i> Data Akurat
                     </span>
                 </div>
             </div>
@@ -49,10 +52,10 @@
                     <i class="fas fa-clock"></i>
                 </div>
                 <div class="stat-content">
-                    <h3 class="stat-number">23</h3>
+                    <h3 class="stat-number">{{ $activeSurveys }}</h3>
                     <p class="stat-label">Survey Aktif</p>
                     <span class="stat-change neutral">
-                        <i class="fas fa-minus"></i> Tidak ada perubahan
+                        <i class="fas fa-minus"></i> Sesuai Periode
                     </span>
                 </div>
             </div>
@@ -62,25 +65,27 @@
                     <i class="fas fa-chart-line"></i>
                 </div>
                 <div class="stat-content">
-                    <h3 class="stat-number">87%</h3>
+                    <h3 class="stat-number">{{ $responseRate }}%</h3>
                     <p class="stat-label">Response Rate</p>
                     <span class="stat-change positive">
-                        <i class="fas fa-arrow-up"></i> 5% dari bulan lalu
+                        <i class="fas fa-arrow-up"></i> Dari Total Mahasiswa
                     </span>
                 </div>
             </div>
         </div>
 
-        {{-- Charts & Tables Row --}}
+        {{---
+        Charts & Tables Row
+        ---}}
         <div class="content-grid">
             {{-- Recent Survey Table --}}
             <div class="card card-table">
                 <div class="card-header">
                     <h3 class="card-title">
                         <i class="fas fa-list-ul"></i>
-                        Survey Terbaru
+                        Survey Terbaru (4 Data)
                     </h3>
-                    <a href="#" class="btn-link">Lihat Semua <i class="fas fa-arrow-right"></i></a>
+                    <a href="{{ route('admin.survey') }}" class="btn-link">Lihat Semua <i class="fas fa-arrow-right"></i></a>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -95,91 +100,33 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>
-                                        <div class="survey-title">
-                                            <i class="fas fa-poll survey-icon"></i>
-                                            Kepuasan Pelanggan Q4 2024
-                                        </div>
-                                    </td>
-                                    <td><span class="badge badge-success">Aktif</span></td>
-                                    <td>234 / 500</td>
-                                    <td>25 Okt 2024</td>
-                                    <td>
-                                        <div class="action-buttons">
-                                            <button class="btn-action btn-view" title="Lihat"><i class="fas fa-eye"></i></button>
-                                            <button class="btn-action btn-edit" title="Edit"><i class="fas fa-edit"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="survey-title">
-                                            <i class="fas fa-poll survey-icon"></i>
-                                            Evaluasi Kinerja Karyawan
-                                        </div>
-                                    </td>
-                                    <td><span class="badge badge-success">Aktif</span></td>
-                                    <td>89 / 150</td>
-                                    <td>22 Okt 2024</td>
-                                    <td>
-                                        <div class="action-buttons">
-                                            <button class="btn-action btn-view" title="Lihat"><i class="fas fa-eye"></i></button>
-                                            <button class="btn-action btn-edit" title="Edit"><i class="fas fa-edit"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="survey-title">
-                                            <i class="fas fa-poll survey-icon"></i>
-                                            Survey Produk Baru
-                                        </div>
-                                    </td>
-                                    <td><span class="badge badge-warning">Draft</span></td>
-                                    <td>0 / 300</td>
-                                    <td>20 Okt 2024</td>
-                                    <td>
-                                        <div class="action-buttons">
-                                            <button class="btn-action btn-view" title="Lihat"><i class="fas fa-eye"></i></button>
-                                            <button class="btn-action btn-edit" title="Edit"><i class="fas fa-edit"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="survey-title">
-                                            <i class="fas fa-poll survey-icon"></i>
-                                            Feedback Website Redesign
-                                        </div>
-                                    </td>
-                                    <td><span class="badge badge-danger">Ditutup</span></td>
-                                    <td>456 / 500</td>
-                                    <td>15 Okt 2024</td>
-                                    <td>
-                                        <div class="action-buttons">
-                                            <button class="btn-action btn-view" title="Lihat"><i class="fas fa-eye"></i></button>
-                                            <button class="btn-action btn-edit" title="Edit"><i class="fas fa-edit"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="survey-title">
-                                            <i class="fas fa-poll survey-icon"></i>
-                                            Riset Pasar 2024
-                                        </div>
-                                    </td>
-                                    <td><span class="badge badge-success">Aktif</span></td>
-                                    <td>178 / 400</td>
-                                    <td>10 Okt 2024</td>
-                                    <td>
-                                        <div class="action-buttons">
-                                            <button class="btn-action btn-view" title="Lihat"><i class="fas fa-eye"></i></button>
-                                            <button class="btn-action btn-edit" title="Edit"><i class="fas fa-edit"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
+                                @forelse ($recentSurveys as $survey)
+                                    @php
+                                        $statusClass = $survey->is_active ? 'badge-success' : 'badge-warning';
+                                        $statusText = $survey->is_active ? 'Aktif' : 'Draft';
+                                    @endphp
+                                    <tr>
+                                        <td>
+                                            <div class="survey-title">
+                                                <i class="fas fa-poll survey-icon"></i>
+                                                {{ $survey->judul }}
+                                            </div>
+                                        </td>
+                                        <td><span class="badge {{ $statusClass }}">{{ $statusText }}</span></td>
+                                        <td>{{ $survey->responses_count }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($survey->created_at)->format('d M Y') }}</td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <a href="{{ route('admin.survey.show', $survey->uuid) }}" class="btn-action btn-view" title="Lihat"><i class="fas fa-eye"></i></a>
+                                                <a href="{{ route('admin.survey.edit', $survey->uuid) }}" class="btn-action btn-edit" title="Edit"><i class="fas fa-edit"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="5" style="text-align: center; color: #64748b;">Tidak ada data survey terbaru.</td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>
@@ -202,48 +149,40 @@
             </div>
         </div>
 
-        {{-- Bottom Row --}}
+        {{---
+        Bottom Row
+        ---}}
         <div class="content-grid-2">
             {{-- Top Surveys --}}
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">
                         <i class="fas fa-trophy"></i>
-                        Survey Terpopuler
+                        Survey Terpopuler (Berdasarkan Responden)
                     </h3>
                 </div>
                 <div class="card-body">
                     <div class="ranking-list">
-                        <div class="ranking-item">
-                            <div class="rank-badge rank-1">1</div>
-                            <div class="rank-content">
-                                <h4>Kepuasan Pelanggan Q4</h4>
-                                <p>2,547 responden</p>
+                        @forelse ($topSurveys as $index => $survey)
+                            <div class="ranking-item">
+                                <div class="rank-badge rank-{{ $index + 1 }}">
+                                    {{ $index + 1 }}
+                                </div>
+                                <div class="rank-content">
+                                    <h4>{{ $survey->judul }}</h4>
+                                    <p>{{ $survey->responses_count }} responden</p>
+                                </div>
+                                <div class="rank-progress">
+                                    @php
+                                        $maxResponses = $topSurveys->first()->responses_count ?: 1;
+                                        $progressWidth = ($survey->responses_count / $maxResponses) * 100;
+                                    @endphp
+                                    <div class="progress-bar" style="width: {{ $progressWidth }}%"></div>
+                                </div>
                             </div>
-                            <div class="rank-progress">
-                                <div class="progress-bar" style="width: 95%"></div>
-                            </div>
-                        </div>
-                        <div class="ranking-item">
-                            <div class="rank-badge rank-2">2</div>
-                            <div class="rank-content">
-                                <h4>Evaluasi Produk Layanan</h4>
-                                <p>1,893 responden</p>
-                            </div>
-                            <div class="rank-progress">
-                                <div class="progress-bar" style="width: 82%"></div>
-                            </div>
-                        </div>
-                        <div class="ranking-item">
-                            <div class="rank-badge rank-3">3</div>
-                            <div class="rank-content">
-                                <h4>Survey Kepuasan Karyawan</h4>
-                                <p>1,456 responden</p>
-                            </div>
-                            <div class="rank-progress">
-                                <div class="progress-bar" style="width: 70%"></div>
-                            </div>
-                        </div>
+                        @empty
+                            <p style="text-align: center; color: #64748b;">Belum ada survey yang memiliki responden.</p>
+                        @endforelse
                     </div>
                 </div>
             </div>
@@ -258,28 +197,29 @@
                 </div>
                 <div class="card-body">
                     <div class="quick-actions">
-                        <button class="quick-action-btn primary">
+                        <a href="{{ route('admin.survey.create') }}" class="quick-action-btn primary">
                             <i class="fas fa-plus-circle"></i>
                             <span>Buat Survey Baru</span>
-                        </button>
+                        </a>
                         <button class="quick-action-btn success">
                             <i class="fas fa-file-export"></i>
                             <span>Export Data</span>
                         </button>
-                        <button class="quick-action-btn info">
+                        <a href="{{ route('admin.laporan') }}" class="quick-action-btn info">
                             <i class="fas fa-chart-pie"></i>
                             <span>Lihat Laporan</span>
-                        </button>
-                        <button class="quick-action-btn warning">
+                        </a>
+                        <a href="{{ route('admin.user') }}" class="quick-action-btn warning">
                             <i class="fas fa-users-cog"></i>
                             <span>Kelola User</span>
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+    {{-- CSS Styles (FULL VERSION) --}}
     <style>
         .dashboard-container {
             max-width: 1400px;
@@ -328,7 +268,7 @@
             letter-spacing: 1px;
         }
 
-        /* Stats Grid */
+        /* Stats Grid (Initial Desktop Grid) */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -412,20 +352,22 @@
             color: #64748b;
         }
 
-        /* Content Grid */
+        /* Content Grid (2:1 Ratio on Desktop) */
         .content-grid {
             display: grid;
-            grid-template-columns: 2fr 1fr;
+            grid-template-columns: 2fr 1fr; /* 2/3 untuk tabel, 1/3 untuk chart */
             gap: 20px;
             margin-bottom: 30px;
         }
 
+        /* Content Grid 2 (50/50 Ratio on Desktop) */
         .content-grid-2 {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            grid-template-columns: repeat(2, 1fr); /* Tetapkan 2 kolom */
             gap: 20px;
         }
-
+        
+        /* CARD STYLING */
         .card {
             background: white;
             border-radius: 12px;
@@ -560,6 +502,7 @@
             justify-content: center;
             transition: all 0.2s;
             font-size: 0.85rem;
+            text-decoration: none;
         }
 
         .btn-view {
@@ -685,6 +628,7 @@
             font-size: 0.85rem;
             color: white;
             transition: all 0.3s ease;
+            text-decoration: none;
         }
 
         .quick-action-btn i {
@@ -712,13 +656,19 @@
             box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
         }
 
-        /* Responsive */
+        /* ======================================= */
+        /* RESPONSIVE OVERRIDES (FIXING STACKED LAYOUT) */
+        /* ======================================= */
+
+        /* Tablet View (1024px and below) */
         @media (max-width: 1024px) {
+            /* Main Content Row Stack */
             .content-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr; /* Ubah dari 2fr 1fr menjadi satu kolom penuh */
             }
         }
 
+        /* Mobile View (768px and below) */
         @media (max-width: 768px) {
             .welcome-content {
                 flex-direction: column;
@@ -727,15 +677,15 @@
             }
 
             .stats-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr; /* Stack semua stat cards */
             }
 
             .content-grid-2 {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr; /* Stack bottom cards */
             }
 
             .quick-actions {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(2, 1fr); /* Pertahankan 2 kolom jika ruang memungkinkan */
             }
         }
     </style>
@@ -743,71 +693,117 @@
     {{-- Chart.js Script --}}
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        // Activity Chart
-        const ctx = document.getElementById('activityChart').getContext('2d');
-        const activityChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'],
-                datasets: [{
-                    label: 'Responden Baru',
-                    data: [45, 89, 67, 123, 98, 156, 134],
-                    borderColor: '#6366f1',
-                    backgroundColor: 'rgba(99, 102, 241, 0.1)',
-                    borderWidth: 3,
-                    fill: true,
-                    tension: 0.4,
-                    pointBackgroundColor: '#6366f1',
-                    pointBorderColor: '#fff',
-                    pointBorderWidth: 2,
-                    pointRadius: 5,
-                    pointHoverRadius: 7
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false
-                    },
-                    tooltip: {
-                        backgroundColor: '#1e293b',
-                        padding: 12,
-                        titleColor: '#fff',
-                        bodyColor: '#fff',
+        // Mengambil token CSRF
+        const csrfMeta = document.querySelector('meta[name="csrf-token"]');
+        const csrfToken = csrfMeta ? csrfMeta.getAttribute('content') : '';
+
+
+        async function fetchActivityData() {
+            try {
+                // Pastikan route() selalu dipanggil dengan sintaks yang benar di Blade
+                const response = await fetch("{{ route('admin.dashboard.activity.data') }}", { 
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'X-CSRF-TOKEN': csrfToken 
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                return await response.json();
+
+            } catch (error) {
+                console.error('Error fetching activity data:', error);
+                // Fallback data dengan label hari dalam Bahasa Indonesia
+                return { 
+                    labels: ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'], 
+                    data: [0, 0, 0, 0, 0, 0, 0] 
+                }; 
+            }
+        }
+
+        // Initialize and Update Chart
+        async function initChart() {
+            const chartData = await fetchActivityData();
+            
+            const ctx = document.getElementById('activityChart').getContext('2d');
+            
+            // Hancurkan instance chart lama jika ada (untuk hot reloading)
+            if (window.activityChartInstance) {
+                window.activityChartInstance.destroy();
+            }
+
+            window.activityChartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: chartData.labels, // Data label dari Controller (Sen, Sel, Rab, dst.)
+                    datasets: [{
+                        label: 'Total Responden per Hari', 
+                        data: chartData.data, // Data responden per hari
                         borderColor: '#6366f1',
-                        borderWidth: 1,
-                        displayColors: false,
-                        callbacks: {
-                            label: function(context) {
-                                return context.parsed.y + ' responden';
+                        backgroundColor: 'rgba(99, 102, 241, 0.1)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4,
+                        pointBackgroundColor: '#6366f1',
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 2,
+                        pointRadius: 5,
+                        pointHoverRadius: 7
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            backgroundColor: '#1e293b',
+                            padding: 12,
+                            titleColor: '#fff',
+                            bodyColor: '#fff',
+                            borderColor: '#6366f1',
+                            borderWidth: 1,
+                            displayColors: false,
+                            callbacks: {
+                                label: function(context) {
+                                    return context.parsed.y + ' respons'; 
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: '#f1f5f9',
+                                drawBorder: false
+                            },
+                            ticks: {
+                                color: '#64748b',
+                                precision: 0 
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false,
+                                drawBorder: false
+                            },
+                            ticks: {
+                                color: '#64748b'
                             }
                         }
                     }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        grid: {
-                            color: '#f1f5f9',
-                            drawBorder: false
-                        },
-                        ticks: {
-                            color: '#64748b'
-                        }
-                    },
-                    x: {
-                        grid: {
-                            display: false,
-                            drawBorder: false
-                        },
-                        ticks: {
-                            color: '#64748b'
-                        }
-                    }
                 }
-            }
-        });
+            });
+        }
+        
+        document.addEventListener('DOMContentLoaded', initChart);
     </script>
 @endsection
