@@ -1,604 +1,782 @@
 @extends('layouts.dashboard')
 
 @section('content')
-    <div class="dashboard-container">
-        {{-- Header Section (Modernized) --}}
-        <div class="modern-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); box-shadow: 0 12px 24px rgba(102, 126, 234, 0.4);">
-            <div class="header-content">
-                <div>
-                    <h2 class="header-title">
-                        <i class="fas fa-graduation-cap header-icon"></i>
-                        Data Hasil
-                    </h2>
-                    <p class="header-subtitle">Kelola informasi data hasil dengan mudah.</p>
-                </div>
-                {{-- Tombol ini sekarang menggunakan <button> dan tidak memiliki route() atau href --}}
-                <button type="button" class="modern-action-btn">
-                    <i class="fas fa-plus-circle"></i>
-                    <span>Tambah Laporan Baru</span>
-                </button>
+<div class="dashboard-container">
+    {{-- Header --}}
+    <div class="modern-header">
+        <div class="header-content">
+            <div>
+                <h2 class="header-title">
+                    <i class="fas fa-chart-pie header-icon"></i>
+                    Data Hasil Survei
+                </h2>
+                <p class="header-subtitle">Visualisasi hasil survei mahasiswa berdasarkan data real-time</p>
             </div>
-        </div>
-
-        {{-- Main Content - Mahasiswa Table --}}
-        <div class="content-grid-full">
-            <div class="modern-card">
-                <div class="modern-card-header">
-                    <h3 class="modern-card-title">
-                        <i class="fas fa-users-class icon-primary"></i>
-                        Daftar Hasil Aktif
-                    </h3>
-                    <div class="header-actions">
-                        <div class="search-box">
-                            <i class="fas fa-search search-icon"></i>
-                            <input type="text" placeholder="Cari mahasiswa..." class="search-input">
-                        </div>
-                        <a href="#" class="btn-export"> {{-- Menggunakan href="#" agar non-fungsional --}}
-                            <i class="fas fa-file-export"></i>
-                            <span>Export</span>
-                        </a>
-                    </div>
-                </div>
-                <div class="modern-card-body">
-                    <div class="table-responsive">
-                        <table class="modern-data-table">
-                            <thead>
-                                <tr>
-                                    <th style="width: 50px;">No.</th>
-                                    <th>Nama Lengkap</th>
-                                    <th>NIM</th>
-                                    <th>Program Studi</th>
-                                    <th>Tahun Angkatan</th>
-                                    <th>Status</th>
-                                    <th style="width: 120px; text-align: center;">Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1.</td>
-                                    <td class="nama-mahasiswa">
-                                        <div class="profile-meta">
-                                            <i class="fas fa-user-circle avatar-icon"></i>
-                                            **Risa Maharani**
-                                        </div>
-                                    </td>
-                                    <td>102019001</td>
-                                    <td>Teknik Informatika</td>
-                                    <td>2019</td>
-                                    <td><span class="modern-badge success">Aktif</span></td>
-                                    <td class="action-cell">
-                                        <div class="action-buttons">
-                                            <button type="button" class="action-icon-btn tooltip-btn" data-tooltip="Lihat Detail">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                            <button type="button" class="action-icon-btn tooltip-btn" data-tooltip="Edit Data">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                            <button type="button" class="action-icon-btn tooltip-btn delete-btn" data-tooltip="Hapus">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2.</td>
-                                    <td class="nama-mahasiswa">
-                                        <div class="profile-meta">
-                                            <i class="fas fa-user-circle avatar-icon"></i>
-                                            **Bayu Adhitama**
-                                        </div>
-                                    </td>
-                                    <td>103020045</td>
-                                    <td>Manajemen Bisnis</td>
-                                    <td>2020</td>
-                                    <td><span class="modern-badge success">Aktif</span></td>
-                                    <td class="action-cell">
-                                        <div class="action-buttons">
-                                            <button type="button" class="action-icon-btn tooltip-btn" data-tooltip="Lihat Detail">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                            <button type="button" class="action-icon-btn tooltip-btn" data-tooltip="Edit Data">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                            <button type="button" class="action-icon-btn tooltip-btn delete-btn" data-tooltip="Hapus">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>3.</td>
-                                    <td class="nama-mahasiswa">
-                                        <div class="profile-meta">
-                                            <i class="fas fa-user-circle avatar-icon"></i>
-                                            **Siti Nurhaliza**
-                                        </div>
-                                    </td>
-                                    <td>101021008</td>
-                                    <td>Akuntansi</td>
-                                    <td>2021</td>
-                                    <td><span class="modern-badge warning">Cuti</span></td>
-                                    <td class="action-cell">
-                                        <div class="action-buttons">
-                                            <button type="button" class="action-icon-btn tooltip-btn" data-tooltip="Lihat Detail">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                            <button type="button" class="action-icon-btn tooltip-btn" data-tooltip="Edit Data">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                            <button type="button" class="action-icon-btn tooltip-btn delete-btn" data-tooltip="Hapus">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>4.</td>
-                                    <td class="nama-mahasiswa">
-                                        <div class="profile-meta">
-                                            <i class="fas fa-user-circle avatar-icon"></i>
-                                            **Andi Pratama**
-                                        </div>
-                                    </td>
-                                    <td>102022067</td>
-                                    <td>Teknik Informatika</td>
-                                    <td>2022</td>
-                                    <td><span class="modern-badge success">Aktif</span></td>
-                                    <td class="action-cell">
-                                        <div class="action-buttons">
-                                            <button type="button" class="action-icon-btn tooltip-btn" data-tooltip="Lihat Detail">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                            <button type="button" class="action-icon-btn tooltip-btn" data-tooltip="Edit Data">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                            <button type="button" class="action-icon-btn tooltip-btn delete-btn" data-tooltip="Hapus">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="modern-card-footer">
-                    <span class="pagination-info">Menampilkan 1 sampai 10 dari 245 entri</span>
-                    <div class="pagination-controls">
-                        <button type="button" class="pagination-btn"><i class="fas fa-angle-left"></i> Previous</button>
-                        <button type="button" class="pagination-btn active">1</button>
-                        <button type="button" class="pagination-btn">2</button>
-                        <button type="button" class="pagination-btn">3</button>
-                        <button type="button" class="pagination-btn">Next <i class="fas fa-angle-right"></i></button>
-                    </div>
-                </div>
+            <div class="header-actions">
+                <select id="surveySelect" class="modern-select">
+                    @foreach($surveys as $s)
+                        <option value="{{ $s->id }}">{{ $s->judul }}</option>
+                    @endforeach
+                </select>
+                <button id="refreshBtn" class="modern-action-btn">
+                    <i class="fas fa-sync-alt"></i> 
+                    <span>Refresh Data</span>
+                </button>
             </div>
         </div>
     </div>
 
-    {{-- CSS Styles for Modern Look (Same as before) --}}
-    <style>
-        /* General Layout - using your existing .dashboard-container and .content-grid-full */
-        .content-grid-full {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
-            margin-bottom: 30px;
+    {{-- Statistics Cards --}}
+    <div class="stats-grid">
+        <div class="stat-card card-blue">
+            <div class="stat-icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="stat-content">
+                <h4 class="stat-label">Total Responden</h4>
+                <div id="cardRespondents" class="stat-value">-</div>
+                <p class="stat-description">Jumlah mahasiswa yang mengisi survey</p>
+            </div>
+        </div>
+        
+        <div class="stat-card card-purple">
+            <div class="stat-icon">
+                <i class="fas fa-star"></i>
+            </div>
+            <div class="stat-content">
+                <h4 class="stat-label">Rata-Rata Skor</h4>
+                <div id="cardAvg" class="stat-value">-</div>
+                <p class="stat-description">Rata-rata keseluruhan skor (1 - 5)</p>
+            </div>
+        </div>
+        
+        <div class="stat-card card-green">
+            <div class="stat-icon">
+                <i class="fas fa-chart-line"></i>
+            </div>
+            <div class="stat-content">
+                <h4 class="stat-label">Indeks Kepuasan (IKM)</h4>
+                <div id="cardIKM" class="stat-value">-</div>
+                <p class="stat-description">(Rata-rata / 5) × 100%</p>
+            </div>
+        </div>
+    </div>
+
+    {{-- Charts Section --}}
+    <div class="charts-grid">
+        {{-- Bar Chart --}}
+        <div class="chart-card chart-large">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <i class="fas fa-chart-bar"></i>
+                    Rata-Rata Nilai per Pertanyaan
+                </h3>
+            </div>
+            <div class="card-body">
+                <canvas id="barChart"></canvas>
+            </div>
+        </div>
+
+        {{-- Pie Chart --}}
+        <div class="chart-card">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <i class="fas fa-chart-pie"></i>
+                    Distribusi Jawaban
+                </h3>
+                <select id="questionSelect" class="chart-select"></select>
+            </div>
+            <div class="card-body">
+                <canvas id="pieChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    {{-- Summary Table --}}
+    <div class="table-section">
+        <div class="table-card">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <i class="fas fa-list"></i>
+                    Ringkasan Pertanyaan
+                </h3>
+            </div>
+            <div class="card-body">
+                <div class="table-wrapper">
+                    <table class="data-table" id="summaryTable">
+                        <thead>
+                            <tr>
+                                <th style="width: 60px;">No.</th>
+                                <th>Pertanyaan</th>
+                                <th style="width: 150px;">Rata-rata Skor</th>
+                                <th style="width: 150px;">Jumlah Respon</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{-- Diisi oleh JavaScript --}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{-- Chart.js CDN --}}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    const barCtx = document.getElementById('barChart').getContext('2d');
+    const pieCtx = document.getElementById('pieChart').getContext('2d');
+    let barChart = null;
+    let pieChart = null;
+
+    const surveySelect = document.getElementById('surveySelect');
+    const questionSelect = document.getElementById('questionSelect');
+    const refreshBtn = document.getElementById('refreshBtn');
+
+    function formatNumber(n, decimals = 2) {
+        return Number(n).toFixed(decimals);
+    }
+
+    async function fetchData(surveyId) {
+        const url = `{{ url('/admin/data-hasil/data') }}?survey_id=${surveyId}`;
+        const res = await fetch(url, { headers: { 'Accept': 'application/json' } });
+        const data = await res.json();
+        return data;
+    }
+
+    function renderCards(data) {
+        document.getElementById('cardRespondents').innerText = data.total_respondents ?? 0;
+        document.getElementById('cardAvg').innerText = (data.overall_average ? formatNumber(data.overall_average, 2) : '-') + ' / 5';
+        document.getElementById('cardIKM').innerText = (data.ikm ? formatNumber(data.ikm, 2) : '-') + ' %';
+    }
+
+    function truncateLabel(label, maxLength = 40) {
+        if (label.length <= maxLength) return label;
+        return label.substring(0, maxLength) + '...';
+    }
+
+    function renderBarChart(labels, values) {
+        if (barChart) barChart.destroy();
+        
+        // Truncate labels untuk tampilan yang lebih rapi
+        const truncatedLabels = labels.map(label => truncateLabel(label, 35));
+        
+        barChart = new Chart(barCtx, {
+            type: 'bar',
+            data: {
+                labels: truncatedLabels,
+                datasets: [{
+                    label: 'Rata-rata skor (1–5)',
+                    data: values,
+                    backgroundColor: 'rgba(102, 126, 234, 0.85)',
+                    borderRadius: 8,
+                    barThickness: 32
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top',
+                        labels: {
+                            padding: 15,
+                            font: {
+                                size: 12,
+                                weight: '600'
+                            }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: function(context) {
+                                // Tampilkan full label di tooltip
+                                return labels[context[0].dataIndex];
+                            },
+                            label: function(context) {
+                                return 'Rata-rata: ' + context.parsed.y.toFixed(2);
+                            }
+                        },
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        padding: 12,
+                        titleFont: {
+                            size: 13,
+                            weight: 'bold'
+                        },
+                        bodyFont: {
+                            size: 12
+                        },
+                        displayColors: true
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 5,
+                        ticks: {
+                            stepSize: 1,
+                            font: {
+                                size: 11
+                            }
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)'
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            maxRotation: 45,
+                            minRotation: 45,
+                            font: {
+                                size: 10
+                            },
+                            autoSkip: false,
+                            padding: 5
+                        },
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    function renderPieChart(labels, values) {
+        if (pieChart) pieChart.destroy();
+        pieChart = new Chart(pieCtx, {
+            type: 'pie',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Distribusi',
+                    data: values,
+                    backgroundColor: [
+                        'rgba(59, 130, 246, 0.8)',
+                        'rgba(16, 185, 129, 0.8)',
+                        'rgba(251, 191, 36, 0.8)',
+                        'rgba(239, 68, 68, 0.8)',
+                        'rgba(168, 85, 247, 0.8)'
+                    ],
+                    borderWidth: 2,
+                    borderColor: '#fff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+    }
+
+    function fillQuestionSelect(questions, selectedQuestionId = null) {
+        questionSelect.innerHTML = '';
+        questions.forEach((q, idx) => {
+            const opt = document.createElement('option');
+            opt.value = q.id;
+            // Truncate pertanyaan yang terlalu panjang untuk dropdown
+            const questionText = q.pertanyaan.length > 80 
+                ? q.pertanyaan.substring(0, 77) + '...' 
+                : q.pertanyaan;
+            opt.text = `${idx + 1}. ${questionText}`;
+            questionSelect.appendChild(opt);
+        });
+        if (selectedQuestionId) questionSelect.value = selectedQuestionId;
+    }
+
+    function fillSummaryTable(summary) {
+        const tbody = document.querySelector('#summaryTable tbody');
+        tbody.innerHTML = '';
+        summary.forEach((row, idx) => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td class="text-center">${idx + 1}.</td>
+                <td>${row.pertanyaan}</td>
+                <td class="text-center">${Number(row.avg).toFixed(2)}</td>
+                <td class="text-center">${row.responses_count}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    async function loadAndRender(surveyId) {
+        const data = await fetchData(surveyId);
+
+        renderCards(data);
+
+        // Store original labels and use short_label for display
+        const originalLabels = data.question_summary.map(q => q.pertanyaan);
+        const labels = data.question_summary.map(q => {
+            // Buat label singkat dari pertanyaan
+            const text = q.short_label || q.pertanyaan;
+            return text.length > 50 ? text.substring(0, 50) + '...' : text;
+        });
+        const values = data.question_summary.map(q => q.avg ? Number(q.avg).toFixed(2) : 0);
+        renderBarChart(labels, values);
+
+        fillQuestionSelect(data.questions, data.questions.length ? data.questions[0].id : null);
+        fillSummaryTable(data.question_summary);
+
+        if (data.questions.length) {
+            const firstQ = data.questions[0].id;
+            updatePieForQuestion(firstQ, data);
+        }
+    }
+
+    async function updatePieForQuestion(questionId, cachedData = null) {
+        let distData;
+        if (cachedData && cachedData.options_by_question && cachedData.options_by_question[questionId]) {
+            distData = cachedData.options_by_question[questionId];
+        } else {
+            const url = `{{ url('/admin/data-hasil/data') }}?survey_id=${surveySelect.value}&question_id=${questionId}`;
+            const res = await fetch(url, { headers: { 'Accept': 'application/json' } });
+            const d = await res.json();
+            distData = d.question_options || [];
         }
 
-        /* Modern Header */
+        const labels = distData.map(o => o.teks_pilihan);
+        const values = distData.map(o => o.count);
+        renderPieChart(labels, values);
+    }
+
+    // Event listeners
+    surveySelect.addEventListener('change', () => loadAndRender(surveySelect.value));
+    refreshBtn.addEventListener('click', () => loadAndRender(surveySelect.value));
+    questionSelect.addEventListener('change', () => updatePieForQuestion(questionSelect.value));
+
+    // Initial load
+    document.addEventListener('DOMContentLoaded', () => {
+        const firstSurveyId = surveySelect.value;
+        if (firstSurveyId) {
+            loadAndRender(firstSurveyId);
+        }
+    });
+</script>
+
+<style>
+    /* Global Container */
+    .dashboard-container {
+        padding: 0;
+        max-width: 100%;
+    }
+
+    /* Modern Header */
+    .modern-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 32px;
+        margin-bottom: 32px;
+        border-radius: 16px;
+        box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+    }
+
+    .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 24px;
+        flex-wrap: wrap;
+    }
+
+    .header-title {
+        color: white;
+        font-size: 1.875rem;
+        font-weight: 700;
+        margin: 0 0 8px 0;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .header-icon {
+        font-size: 2rem;
+    }
+
+    .header-subtitle {
+        color: rgba(255, 255, 255, 0.9);
+        margin: 0;
+        font-size: 1rem;
+    }
+
+    .header-actions {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    /* Modern Select */
+    .modern-select {
+        background: white;
+        color: #334155;
+        padding: 12px 40px 12px 16px;
+        border-radius: 10px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        font-size: 0.95rem;
+        font-weight: 500;
+        min-width: 300px;
+        cursor: pointer;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        appearance: none;
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23667eea' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 12px center;
+        background-size: 20px;
+    }
+
+    .modern-select:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        border-color: rgba(102, 126, 234, 0.3);
+        transform: translateY(-1px);
+    }
+
+    .modern-select:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.2);
+    }
+
+    .modern-select option {
+        padding: 10px;
+        background: white;
+        color: #334155;
+    }
+
+    /* Action Button */
+    .modern-action-btn {
+        background: white;
+        color: #667eea;
+        padding: 12px 20px;
+        border-radius: 10px;
+        border: none;
+        font-size: 0.95rem;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        white-space: nowrap;
+    }
+
+    .modern-action-btn:hover {
+        background: #667eea;
+        color: white;
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        transform: translateY(-2px);
+    }
+
+    /* Statistics Cards */
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 24px;
+        margin-bottom: 32px;
+    }
+
+    .stat-card {
+        background: white;
+        border-radius: 16px;
+        padding: 24px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        display: flex;
+        gap: 20px;
+        align-items: flex-start;
+        transition: all 0.3s ease;
+        border-left: 4px solid;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    }
+
+    .card-blue {
+        border-left-color: #3b82f6;
+    }
+
+    .card-purple {
+        border-left-color: #667eea;
+    }
+
+    .card-green {
+        border-left-color: #10b981;
+    }
+
+    .stat-icon {
+        width: 56px;
+        height: 56px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        flex-shrink: 0;
+    }
+
+    .card-blue .stat-icon {
+        background: rgba(59, 130, 246, 0.1);
+        color: #3b82f6;
+    }
+
+    .card-purple .stat-icon {
+        background: rgba(102, 126, 234, 0.1);
+        color: #667eea;
+    }
+
+    .card-green .stat-icon {
+        background: rgba(16, 185, 129, 0.1);
+        color: #10b981;
+    }
+
+    .stat-content {
+        flex: 1;
+    }
+
+    .stat-label {
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: #64748b;
+        margin: 0 0 8px 0;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .stat-value {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin-bottom: 8px;
+    }
+
+    .stat-description {
+        font-size: 0.875rem;
+        color: #94a3b8;
+        margin: 0;
+    }
+
+    /* Charts Grid */
+    .charts-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 24px;
+        margin-bottom: 32px;
+    }
+
+    @media (max-width: 1200px) {
+        .charts-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    /* Chart Cards */
+    .chart-card {
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+    }
+
+    .chart-large .card-body {
+        height: 450px;
+        padding: 24px;
+    }
+
+    .chart-card:not(.chart-large) .card-body {
+        height: 380px;
+        padding: 24px;
+    }
+
+    .card-header {
+        padding: 20px 24px;
+        border-bottom: 1px solid #e5e7eb;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        flex-wrap: wrap;
+    }
+
+    .card-title {
+        font-size: 1.125rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .card-title i {
+        color: #667eea;
+    }
+
+    .chart-select {
+        background: white;
+        color: #334155;
+        padding: 10px 36px 10px 14px;
+        border-radius: 8px;
+        border: 2px solid #e2e8f0;
+        font-size: 0.875rem;
+        font-weight: 500;
+        min-width: 280px;
+        max-width: 100%;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        appearance: none;
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23667eea' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 10px center;
+        background-size: 18px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    .chart-select:hover {
+        border-color: #667eea;
+        box-shadow: 0 2px 6px rgba(102, 126, 234, 0.15);
+        transform: translateY(-1px);
+    }
+
+    .chart-select:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+    }
+
+    .chart-select option {
+        padding: 10px;
+        background: white;
+        color: #334155;
+        font-size: 0.875rem;
+    }
+
+    .card-body {
+        position: relative;
+    }
+
+    /* Table Section */
+    .table-section {
+        margin-bottom: 32px;
+    }
+
+    .table-card {
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+    }
+
+    .table-wrapper {
+        overflow-x: auto;
+        padding: 0 24px 24px 24px;
+    }
+
+    .data-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.9375rem;
+    }
+
+    .data-table thead {
+        background: #f8fafc;
+    }
+
+    .data-table th {
+        padding: 16px 20px;
+        text-align: left;
+        font-weight: 600;
+        color: #475569;
+        text-transform: uppercase;
+        font-size: 0.8125rem;
+        letter-spacing: 0.5px;
+        border-bottom: 2px solid #e2e8f0;
+    }
+
+    .data-table td {
+        padding: 16px 20px;
+        color: #334155;
+        border-bottom: 1px solid #f1f5f9;
+    }
+
+    .data-table tbody tr {
+        transition: background-color 0.2s ease;
+    }
+
+    .data-table tbody tr:hover {
+        background-color: #f8fafc;
+    }
+
+    .data-table tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+    .text-center {
+        text-align: center !important;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
         .modern-header {
-            padding: 30px 40px;
-            border-radius: 12px;
-            margin-bottom: 30px;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap; /* Allow wrapping on smaller screens */
-            gap: 20px;
+            padding: 24px;
         }
 
         .header-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-        }
-
-        .header-title {
-            font-size: 2.2rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        }
-
-        .header-icon {
-            font-size: 2rem;
-            color: rgba(255,255,255,0.8);
-        }
-
-        .header-subtitle {
-            font-size: 1rem;
-            opacity: 0.9;
-            max-width: 600px;
-            line-height: 1.5;
-        }
-
-        .modern-action-btn {
-            background-color: white;
-            color: #667eea;
-            padding: 12px 25px;
-            border: none; /* Make it look like a button */
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            min-width: 200px; /* Ensure button has decent width */
-            justify-content: center;
-            cursor: pointer;
-        }
-
-        .modern-action-btn:hover {
-            background-color: #f0f4f8; /* Light gray on hover */
-            color: #5a67d8;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-        }
-
-        /* Modern Card */
-        .modern-card {
-            background-color: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-            overflow: hidden; /* For table rounded corners */
-        }
-
-        .modern-card-header {
-            padding: 24px 30px;
-            border-bottom: 1px solid #edf2f7; /* Lighter border */
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px; /* Spacing for wrap */
-        }
-
-        .modern-card-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #334155;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .icon-primary {
-            color: #667eea;
-            font-size: 1.5rem;
+            flex-direction: column;
+            align-items: flex-start;
         }
 
         .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            flex-wrap: wrap;
-            justify-content: flex-end; /* Align actions to the right */
-        }
-
-        .search-box {
-            position: relative;
-            flex-grow: 1; /* Allow search to take more space */
-            max-width: 300px; /* Limit search width */
-        }
-
-        .search-input {
             width: 100%;
-            padding: 10px 15px 10px 40px; /* Left padding for icon */
-            border: 1px solid #cbd5e1;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            outline: none;
+            flex-direction: column;
         }
 
-        .search-input:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #94a3b8;
-        }
-
-        .btn-export {
-            background-color: #e2e8f0;
-            color: #4a5568;
-            padding: 10px 18px;
-            border-radius: 8px;
-            font-weight: 500;
-            font-size: 0.9rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .btn-export:hover {
-            background-color: #cbd5e1;
-            color: #2d3748;
-        }
-
-        .modern-card-body {
-            padding: 0; /* Table will fill the body */
-        }
-
-        /* Modern Data Table */
-        .modern-data-table {
+        .modern-select,
+        .modern-action-btn {
             width: 100%;
-            border-collapse: collapse;
-            font-size: 0.9rem;
-            color: #4a5568;
+            min-width: auto;
         }
 
-        .modern-data-table th, .modern-data-table td {
-            padding: 18px 30px;
-            text-align: left;
-            border-bottom: 1px solid #edf2f7; /* Light horizontal lines */
+        .stats-grid {
+            grid-template-columns: 1fr;
         }
 
-        .modern-data-table th {
-            background-color: #f8fafc;
-            font-weight: 600;
-            color: #64748b;
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            letter-spacing: 0.05em;
-        }
-
-        .modern-data-table tbody tr:hover {
-            background-color: #f0f4f8; /* Subtle hover effect */
-        }
-        
-        .modern-data-table tbody tr:last-child td {
-            border-bottom: none; /* No border for last row */
-        }
-
-        .profile-meta {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .avatar-icon {
-            font-size: 1.2rem;
-            color: #667eea;
-        }
-
-        /* Modern Badges */
-        .modern-badge {
-            display: inline-flex;
-            align-items: center;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .modern-badge.success {
-            background-color: #d1fae5; /* Light green */
-            color: #065f46; /* Darker green text */
-        }
-
-        .modern-badge.warning {
-            background-color: #fef3c7; /* Light yellow */
-            color: #92400e; /* Darker yellow/orange text */
-        }
-
-        /* Action Buttons */
-        .action-cell {
+        .stat-card {
+            flex-direction: column;
             text-align: center;
         }
 
-        .action-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
+        .stat-icon {
+            margin: 0 auto;
         }
 
-        .action-icon-btn {
-            background: none;
-            border: none;
-            color: #94a3b8;
-            font-size: 1.1rem;
-            cursor: pointer;
-            padding: 6px;
-            border-radius: 6px;
-            transition: all 0.2s ease;
-            position: relative; /* For tooltip */
+        .card-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 12px;
         }
 
-        .action-icon-btn:hover {
-            color: #667eea;
-            background-color: #eff6ff;
+        .chart-select {
+            width: 100%;
+            min-width: auto;
         }
 
-        .action-icon-btn.delete-btn:hover {
-            color: #ef4444;
-            background-color: #fee2e2;
+        .data-table {
+            font-size: 0.875rem;
         }
 
-        /* Tooltip */
-        .tooltip-btn::before {
-            content: attr(data-tooltip);
-            position: absolute;
-            bottom: 120%; /* Position above the button */
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #334155;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            white-space: nowrap;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s, visibility 0.3s;
-            z-index: 10;
+        .data-table th,
+        .data-table td {
+            padding: 12px 16px;
         }
-
-        .tooltip-btn:hover::before {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        /* Modern Card Footer (Pagination) */
-        .modern-card-footer {
-            padding: 20px 30px;
-            border-top: 1px solid #edf2f7;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .pagination-info {
-            font-size: 0.9rem;
-            color: #64748b;
-        }
-
-        .pagination-controls {
-            display: flex;
-            gap: 8px;
-        }
-
-        .pagination-btn {
-            background-color: #f0f4f8;
-            color: #64748b;
-            padding: 8px 14px;
-            border: 1px solid #cbd5e1;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .pagination-btn:hover:not(.active) {
-            background-color: #e2e8f0;
-            border-color: #a0aec0;
-            color: #4a5568;
-        }
-
-        .pagination-btn.active {
-            background-color: #667eea;
-            color: white;
-            border-color: #667eea;
-            font-weight: 600;
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .modern-header {
-                padding: 25px 25px;
-            }
-            .header-content {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 15px;
-            }
-            .header-title {
-                font-size: 1.8rem;
-            }
-            .header-subtitle {
-                font-size: 0.9rem;
-            }
-            .modern-action-btn {
-                width: 100%;
-                min-width: unset;
-            }
-
-            .modern-card-header {
-                flex-direction: column;
-                align-items: flex-start;
-                padding: 20px 25px;
-            }
-            .header-actions {
-                width: 100%;
-                flex-direction: column;
-                align-items: stretch;
-                gap: 10px;
-            }
-            .search-box {
-                max-width: none;
-                width: 100%;
-            }
-            .btn-export {
-                width: 100%;
-                justify-content: center;
-            }
-
-            .modern-data-table th, .modern-data-table td {
-                padding: 15px 20px;
-            }
-
-            .modern-card-footer {
-                flex-direction: column;
-                padding: 20px 25px;
-            }
-            .pagination-controls {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .modern-data-table th, .modern-data-table td {
-                font-size: 0.85rem;
-                padding: 12px 15px;
-            }
-            .header-title {
-                font-size: 1.5rem;
-            }
-            .header-icon {
-                font-size: 1.3rem;
-            }
-            .modern-card-title {
-                font-size: 1.1rem;
-            }
-            .icon-primary {
-                font-size: 1.2rem;
-            }
-            .modern-badge {
-                font-size: 0.7rem;
-                padding: 4px 8px;
-            }
-            .action-icon-btn {
-                font-size: 1rem;
-                padding: 4px;
-            }
-            .pagination-btn {
-                font-size: 0.8rem;
-                padding: 6px 10px;
-            }
-        }
-    </style>
+    }
+</style>
 @endsection
