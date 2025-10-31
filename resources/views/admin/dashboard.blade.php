@@ -205,7 +205,7 @@
                             <i class="fas fa-file-export"></i>
                             <span>Export Data</span>
                         </button>
-                        <a href="{{ route('admin.laporan') }}" class="quick-action-btn info">
+                        <a href="{{ route('admin.laporan.index') }}" class="quick-action-btn info">
                             <i class="fas fa-chart-pie"></i>
                             <span>Lihat Laporan</span>
                         </a>

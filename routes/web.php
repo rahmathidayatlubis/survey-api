@@ -3,9 +3,11 @@
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WebAuthController;
-use App\Http\Controllers\MahasiswaController; // Wajib diimpor
-use App\Http\Controllers\SurveyController; // Wajib diimpor
+use App\Http\Controllers\MahasiswaController;
+use App\Http\Controllers\SurveyController;
 use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\DataHasilSurveyController;
+use App\Http\Controllers\Admin\LaporanController;
 
 // --- 1. RUTE UNTUK PENGGUNA TAMU (GUEST) ---
 Route::get('/', [WebAuthController::class, 'showLoginForm'])->name('login');
@@ -43,10 +45,10 @@ Route::middleware('auth')->group(function () {
 
     // DASHBOARD & FITUR ADMIN
     Route::prefix('admin')->name('admin.')->group(function () {
-        // Rute Admin Pengguna (sudah ada)
+        // Rute Admin Dashboard & User
         Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
 
-        Route::get('/dashboard/activity-data', [AdminDashboardController::class, 'getActivityData'])->name('dashboard.activity.data'); // <<< INI YANG HILANG
+        Route::get('/dashboard/activity-data', [AdminDashboardController::class, 'getActivityData'])->name('dashboard.activity.data'); 
         Route::get('/data-mahasiswa', [UserController::class, 'index'])->name('user');
         Route::get('/user/create', [UserController::class, 'create'])->name('user.create');
         Route::post('/user/store', [UserController::class, 'store'])->name('user.store');
@@ -56,31 +58,41 @@ Route::middleware('auth')->group(function () {
         Route::delete('/user/{id}/destroy', [UserController::class, 'destroy'])->name('user.destroy');
 
         // --- RUTE LENGKAP CRUD UNTUK SURVEY ---
-        
-        // 1. Index: Daftar Survey
         Route::get('/data-survey', [SurveyController::class, 'index'])->name('survey');
-        
-        // 2. Create: Form Tambah (admin.survey.create)
         Route::get('/data-survey/create', [SurveyController::class, 'create'])->name('survey.create');
-        
-        // 3. Store: Simpan Data Baru (admin.survey.store)
         Route::post('/data-survey/store', [SurveyController::class, 'store'])->name('survey.store');
-        
-        // 4. Show: Detail Survey (admin.survey.show)
         Route::get('/data-survey/{uuid}', [SurveyController::class, 'show'])->name('survey.show');
-        
-        // 5. Edit: Form Edit (admin.survey.edit)
         Route::get('/data-survey/{uuid}/edit', [SurveyController::class, 'edit'])->name('survey.edit');
-        
-        // 6. Update: Proses Update Data (admin.survey.update)
         Route::put('/data-survey/{uuid}/update', [SurveyController::class, 'update'])->name('survey.update');
-        
-        // 7. Destroy: Hapus Data (admin.survey.destroy)
         Route::delete('/data-survey/{uuid}/destroy', [SurveyController::class, 'destroy'])->name('survey.destroy');
         
 
-        // Rute Admin lainnya
-        Route::get('/data-laporan', function () { return view('admin.laporan'); })->name('laporan');
-        Route::get('/data-hasil', function () { return view('admin.hasil'); })->name('hasil');
+        // ===== PERBAIKAN ROUTE LAPORAN =====
+        // URL Path: /admin/data-laporan/*
+        // Route Name: laporan.*
+        Route::prefix('data-laporan')->name('laporan.')->group(function () {
+            // Rute ini menjadi 'laporan.index'
+            Route::get('/', [LaporanController::class, 'index'])->name('index'); 
+            
+            // Rute ini menjadi 'laporan.show'
+            Route::get('/{uuid}', [LaporanController::class, 'show'])->name('show');
+            
+            // Rute ini menjadi 'laporan.responses'
+            Route::get('/{uuid}/responses', [LaporanController::class, 'responses'])->name('responses');
+            
+            // PERBAIKAN UTAMA: Hapus prefix URL ganda dan nama route yang berlebihan
+            // Rute ini menjadi 'laporan.responseDetail'
+            Route::get('/response-detail/{id}', [LaporanController::class, 'getResponseDetail'])->name('responseDetail');
+            
+            // Rute ini menjadi 'laporan.pdf'
+            Route::get('/{uuid}/pdf', [LaporanController::class, 'exportPDF'])->name('pdf');
+            
+            // Rute ini menjadi 'laporan.excel'
+            Route::get('/{uuid}/excel', [LaporanController::class, 'exportExcel'])->name('excel');
+        });
+
+        // Rute Data Hasil
+        Route::get('/data-hasil', [DataHasilSurveyController::class, 'index'])->name('hasil'); 
+        Route::get('/data-hasil/data', [DataHasilSurveyController::class, 'data'])->name('hasil.data'); 
     });
 });

@@ -471,8 +471,8 @@
                     </a>
                     
                     <div class="menu-section-title">Laporan & Hasil</div>
-                    <a href="{{ route('admin.laporan') }}" 
-                    class="{{ request()->routeIs('admin.laporan') ? 'active' : '' }}">
+                    <a href="{{ route('admin.laporan.index') }}" 
+                    class="{{ request()->routeIs('admin.laporan.index') ? 'active' : '' }}">
                         <i class="fas fa-chart-bar"></i>
                         <span>Data Laporan</span>
                     </a>
