@@ -12,11 +12,11 @@
                     </h2>
                     <p class="header-subtitle">Kelola informasi dan lihat detail hasil dari setiap survey.</p>
                 </div>
-                {{-- Tombol ini sekarang menggunakan <button> dan tidak memiliki route() atau href --}}
-                <button type="button" class="modern-action-btn">
+                {{-- PERBAIKAN: Tombol Tambah Survey Baru menunjuk ke rute CREATE --}}
+                <a href="{{ route('admin.survey.create') }}" class="modern-action-btn" style="text-decoration: none;">
                     <i class="fas fa-plus-circle"></i>
                     <span>Tambah Survey Baru</span>
-                </button>
+                </a>
             </div>
         </div>
 
@@ -33,11 +33,7 @@
                             <i class="fas fa-search search-icon"></i>
                             <input type="text" placeholder="Cari survey..." class="search-input">
                         </div>
-                        <!-- <a href="#" class="btn-export">
-                            <i class="fas fa-file-export"></i>
-                            <span>Export</span>
-                        </a> -->
-                    </div>
+                        </div>
                 </div>
                 <div class="modern-card-body">
                     <div class="table-responsive">
@@ -46,7 +42,7 @@
                                 <tr>
                                     <th style="width: 50px;">No.</th>
                                     <th>Judul Survey</th>
-                                    <th>Deskripsi Singkat</th> {{-- KOLOM BARU --}}
+                                    <th>Deskripsi Singkat</th>
                                     <th>Periode</th>
                                     <th style="text-align: center;">Jml. Pertanyaan</th>
                                     <th style="text-align: center;">Jml. Responden</th>
@@ -55,10 +51,9 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- Pastikan variabel $surveys tersedia dari Controller --}}
+                                {{-- Looping data survey --}}
                                 @forelse ($surveys as $survey)
                                     <tr>
-                                        {{-- $loop->iteration untuk nomor urut yang dimulai dari 1 --}}
                                         <td>{{ $loop->iteration }}.</td> 
                                         <td class="nama-mahasiswa">
                                             <div class="profile-meta">
@@ -66,13 +61,11 @@
                                                 {{ $survey->judul }}
                                             </div>
                                         </td>
-                                        {{-- KOLOM DESKRIPSI BARU --}}
                                         <td>
                                             <span style="color: #64748b; font-size: 0.9rem;">
                                                 {{ Str::limit($survey->deskripsi, 150) }}
                                             </span>
                                         </td>
-                                        {{-- Asumsi Anda memiliki Carbon dan Str diakses/terimport dengan benar --}}
                                         <td>{{ \Carbon\Carbon::parse($survey->tanggal_mulai)->format('d M y') }} - {{ \Carbon\Carbon::parse($survey->tanggal_selesai)->format('d M y') }}</td>
                                         <td style="text-align: center;">{{ $survey->questions_count }}</td> 
                                         <td style="text-align: center;">{{ $survey->responses_count }}</td> 
@@ -85,15 +78,26 @@
                                         </td>
                                         <td class="action-cell">
                                             <div class="action-buttons">
-                                                <button type="button" class="action-icon-btn tooltip-btn" data-tooltip="Lihat Detail">
+                                                
+                                                {{-- 1. LIHAT DETAIL (SHOW) --}}
+                                                <a href="{{ route('admin.survey.show', $survey->uuid) }}" class="action-icon-btn tooltip-btn" data-tooltip="Lihat Detail">
                                                     <i class="fas fa-eye"></i>
-                                                </button>
-                                                <button type="button" class="action-icon-btn tooltip-btn" data-tooltip="Edit Data">
+                                                </a>
+                                                
+                                                {{-- 2. EDIT DATA (EDIT) --}}
+                                                <a href="{{ route('admin.survey.edit', $survey->uuid) }}" class="action-icon-btn tooltip-btn" data-tooltip="Edit Data">
                                                     <i class="fas fa-edit"></i>
-                                                </button>
-                                                <button type="button" class="action-icon-btn tooltip-btn delete-btn" data-tooltip="Hapus">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </button>
+                                                </a>
+
+                                                {{-- 3. HAPUS DATA (DELETE) --}}
+                                                {{-- Menggunakan form DELETE method karena HTTP tidak mendukung link DELETE --}}
+                                                <form action="{{ route('admin.survey.destroy', $survey->uuid) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus survey ini? Semua pertanyaan dan respon terkait akan ikut terhapus!');" style="display: inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="action-icon-btn tooltip-btn delete-btn" data-tooltip="Hapus">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </button>
+                                                </form>
                                             </div>
                                         </td>
                                     </tr>
@@ -115,7 +119,6 @@
                         Menampilkan {{ $surveys->firstItem() ?? 0 }} sampai {{ $surveys->lastItem() ?? 0 }} dari {{ $surveys->total() ?? 0 }} entri
                     </span>
                     <div class="pagination-controls">
-                        {{-- FIX: Menggunakan view pagination default Tailwind --}}
                         {{ $surveys->links('pagination::tailwind') }} 
                     </div>
                 </div>
@@ -124,7 +127,7 @@
         </div>
     </div>
 
-    {{-- CSS Styles --}}
+    {{-- CSS Styles (Dibiarkan sama) --}}
     <style>
         /* General Layout - using your existing .dashboard-container and .content-grid-full */
         .content-grid-full {
@@ -368,8 +371,9 @@
             justify-content: center;
             gap: 8px;
         }
-
-        .action-icon-btn {
+        
+        /* Menggunakan <a> dan <button> sebagai action-icon-btn */
+        .action-icon-btn, .action-buttons form button[type="submit"] {
             background: none;
             border: none;
             color: #94a3b8;
@@ -378,15 +382,17 @@
             padding: 6px;
             border-radius: 6px;
             transition: all 0.2s ease;
-            position: relative; /* For tooltip */
+            position: relative; 
+            text-decoration: none; 
+            display: inline-block;
         }
 
-        .action-icon-btn:hover {
+        .action-icon-btn:hover, .action-buttons form button[type="submit"]:hover {
             color: #667eea;
             background-color: #eff6ff;
         }
 
-        .action-icon-btn.delete-btn:hover {
+        .action-icon-btn.delete-btn:hover, .action-buttons form button[type="submit"].delete-btn:hover {
             color: #ef4444;
             background-color: #fee2e2;
         }
@@ -431,18 +437,6 @@
             color: #64748b;
         }
         
-        /* Hapus style .pagination-controls karena Tailwind akan mengontrol */
-        /* .pagination-controls {
-            display: flex;
-            gap: 8px;
-        } */
-
-        /* Hapus style .pagination-btn dan .active karena Tailwind akan mengontrol */
-        /* .pagination-btn { ... } */
-        /* .pagination-btn:hover:not(.active) { ... } */
-        /* .pagination-btn.active { ... } */
-
-
         /* Responsive adjustments */
         @media (max-width: 768px) {
             .modern-header {
@@ -492,10 +486,6 @@
                 flex-direction: column;
                 padding: 20px 25px;
             }
-            /* .pagination-controls {
-                flex-wrap: wrap;
-                justify-content: center;
-            } */
         }
 
         @media (max-width: 480px) {
@@ -523,10 +513,6 @@
                 font-size: 1rem;
                 padding: 4px;
             }
-            /* .pagination-btn {
-                font-size: 0.8rem;
-                padding: 6px 10px;
-            } */
         }
     </style>
 @endsection

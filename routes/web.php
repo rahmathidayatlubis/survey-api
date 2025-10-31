@@ -23,7 +23,6 @@ Route::middleware('auth')->group(function () {
     Route::prefix('mahasiswa')->name('mahasiswa.')->group(function () {
         
         // Dashboard
-       // Rute yang benar, mengirim variabel
         Route::get('/dashboard', [MahasiswaController::class, 'dashboard'])->name('dashboard');
 
         // [DAFTAR SURVEY] - Menuju MahasiswaController@index
@@ -35,8 +34,7 @@ Route::middleware('auth')->group(function () {
         // [SUBMIT JAWABAN]
         Route::post('/survey-form/{uuid}/submit', [MahasiswaController::class, 'submit'])->name('survey.submit');
 
-        // [RIWAYAT - FIX] - HARUS MENUNJUK KE CONTROLLER, BUKAN CLOSURE
-        // Route Name: mahasiswa.riwayat
+        // [RIWAYAT - FIX]
         Route::get('/data-riwayat', [MahasiswaController::class, 'riwayat'])->name('riwayat');
 
     });
@@ -44,7 +42,7 @@ Route::middleware('auth')->group(function () {
 
     // DASHBOARD & FITUR ADMIN
     Route::prefix('admin')->name('admin.')->group(function () {
-        // ... (Rute Admin tidak diubah) ...
+        // Rute Admin Pengguna (sudah ada)
         Route::get('/dashboard', function () { return view('admin.dashboard'); })->name('dashboard');
         Route::get('/data-mahasiswa', [UserController::class, 'index'])->name('user');
         Route::get('/user/create', [UserController::class, 'create'])->name('user.create');
@@ -54,7 +52,30 @@ Route::middleware('auth')->group(function () {
         Route::put('/user/{id}/update', [UserController::class, 'update'])->name('user.update');
         Route::delete('/user/{id}/destroy', [UserController::class, 'destroy'])->name('user.destroy');
 
+        // --- RUTE LENGKAP CRUD UNTUK SURVEY ---
+        
+        // 1. Index: Daftar Survey
         Route::get('/data-survey', [SurveyController::class, 'index'])->name('survey');
+        
+        // 2. Create: Form Tambah (admin.survey.create)
+        Route::get('/data-survey/create', [SurveyController::class, 'create'])->name('survey.create');
+        
+        // 3. Store: Simpan Data Baru (admin.survey.store)
+        Route::post('/data-survey/store', [SurveyController::class, 'store'])->name('survey.store');
+        
+        // 4. Show: Detail Survey (admin.survey.show)
+        Route::get('/data-survey/{uuid}', [SurveyController::class, 'show'])->name('survey.show');
+        
+        // 5. Edit: Form Edit (admin.survey.edit)
+        Route::get('/data-survey/{uuid}/edit', [SurveyController::class, 'edit'])->name('survey.edit');
+        
+        // 6. Update: Proses Update Data (admin.survey.update)
+        Route::put('/data-survey/{uuid}/update', [SurveyController::class, 'update'])->name('survey.update');
+        
+        // 7. Destroy: Hapus Data (admin.survey.destroy)
+        Route::delete('/data-survey/{uuid}/destroy', [SurveyController::class, 'destroy'])->name('survey.destroy');
+        
+        // Rute Admin lainnya
         Route::get('/data-laporan', function () { return view('admin.laporan'); })->name('laporan');
         Route::get('/data-hasil', function () { return view('admin.hasil'); })->name('hasil');
     });

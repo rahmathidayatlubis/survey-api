@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
-class SurveyController extends Controller
+class MahasiswaController extends Controller
 {
     /**
      * Menampilkan Dashboard Mahasiswa dengan metrik dan daftar survei pending.
