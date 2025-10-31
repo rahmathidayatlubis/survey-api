@@ -27,12 +27,10 @@
                     </h2>
                     <p class="header-subtitle">Kelola informasi dan rekam jejak akademik mahasiswa dengan mudah.</p>
                 </div>
-                {{-- Tombol ini sekarang menggunakan <button> dan tidak memiliki route() atau href --}}
                 <a href="{{ route('admin.user.create') }}" class="modern-action-btn" style="text-decoration:none;">
                     <i class="fas fa-plus-circle"></i>
                     <span>Tambah Mahasiswa Baru</span>
                 </a>
-
             </div>
         </div>
 
@@ -44,17 +42,33 @@
                         <i class="fas fa-users-class icon-primary"></i>
                         Daftar Mahasiswa Aktif
                     </h3>
+                    
+                    {{-- Header Actions: Search & Export --}}
                     <div class="header-actions">
-                        <div class="search-box">
+                        <form action="{{ route('admin.user') }}" method="GET" class="search-box">
                             <i class="fas fa-search search-icon"></i>
-                            <input type="text" placeholder="Cari mahasiswa..." class="search-input">
-                        </div>
-                        <a href="#" class="btn-export"> {{-- Menggunakan href="#" agar non-fungsional --}}
-                            <i class="fas fa-file-export"></i>
-                            <span>Export</span>
-                        </a>
+                            <input type="text" 
+                                   name="search" 
+                                   placeholder="Cari mahasiswa..." 
+                                   class="search-input"
+                                   value="{{ request('search') }}">
+                            @if (request('search'))
+                                <button type="button" 
+                                        onclick="window.location='{{ route('admin.user') }}'"
+                                        class="clear-search" 
+                                        title="Hapus pencarian">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            @endif
+                        </form>
+
+                        {{-- <a href="#" class="btn-export"> --}}
+                            {{-- <i class="fas fa-file-export"></i> --}}
+                            {{-- <span>Export</span> --}}
+                        {{-- </a> --}}
                     </div>
                 </div>
+                
                 <div class="modern-card-body">
                     <div class="table-responsive">
                         <table class="modern-data-table">
@@ -121,11 +135,9 @@
                                     </tr>
                                 @endforelse
                             </tbody>
-
                         </table>
                     </div>
                 </div>
-
 
                 <div class="modern-card-footer">
                     <span class="pagination-info">
@@ -136,18 +148,13 @@
                         {{ $data->links() }}
                     </div>
                 </div>
-
-
-
             </div>
         </div>
     </div>
 
     {{-- CSS Styles for Modern Look --}}
     <style>
-
-
- /* Spacing for pagination links */
+        /* Spacing for pagination links */
         .pagination-controls nav {
             display: flex;
             gap: 8px;
@@ -156,7 +163,8 @@
         .pagination-controls .flex {
             gap: 8px;
         }
-        /* General Layout - using your existing .dashboard-container and .content-grid-full */
+
+        /* General Layout */
         .content-grid-full {
             display: grid;
             grid-template-columns: 1fr;
@@ -174,7 +182,6 @@
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
-            /* Allow wrapping on smaller screens */
             gap: 20px;
         }
 
@@ -212,7 +219,6 @@
             color: #667eea;
             padding: 12px 25px;
             border: none;
-            /* Make it look like a button */
             border-radius: 8px;
             font-weight: 600;
             font-size: 0.95rem;
@@ -223,14 +229,12 @@
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             min-width: 200px;
-            /* Ensure button has decent width */
             justify-content: center;
             cursor: pointer;
         }
 
         .modern-action-btn:hover {
             background-color: #f0f4f8;
-            /* Light gray on hover */
             color: #5a67d8;
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
@@ -242,19 +246,16 @@
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
             overflow: hidden;
-            /* For table rounded corners */
         }
 
         .modern-card-header {
             padding: 24px 30px;
             border-bottom: 1px solid #edf2f7;
-            /* Lighter border */
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
             gap: 15px;
-            /* Spacing for wrap */
         }
 
         .modern-card-title {
@@ -271,27 +272,25 @@
             font-size: 1.5rem;
         }
 
+        /* Header Actions Container - FIXED */
         .header-actions {
             display: flex;
             align-items: center;
-            gap: 15px;
-            flex-wrap: wrap;
-            justify-content: flex-end;
-            /* Align actions to the right */
+            gap: 12px;
+            flex-wrap: nowrap;
         }
 
+        /* Search Box - FIXED */
         .search-box {
             position: relative;
-            flex-grow: 1;
-            /* Allow search to take more space */
-            max-width: 300px;
-            /* Limit search width */
+            width: 300px;
+            display: flex;
+            align-items: center;
         }
 
         .search-input {
             width: 100%;
-            padding: 10px 15px 10px 40px;
-            /* Left padding for icon */
+            padding: 10px 40px 10px 40px;
             border: 1px solid #cbd5e1;
             border-radius: 8px;
             font-size: 0.9rem;
@@ -310,8 +309,32 @@
             top: 50%;
             transform: translateY(-50%);
             color: #94a3b8;
+            pointer-events: none;
         }
 
+        /* Clear Search Button - FIXED */
+        .clear-search {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #94a3b8;
+            cursor: pointer;
+            padding: 4px;
+            font-size: 0.9rem;
+            transition: color 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .clear-search:hover {
+            color: #667eea;
+        }
+
+        /* Export Button */
         .btn-export {
             background-color: #e2e8f0;
             color: #4a5568;
@@ -324,6 +347,7 @@
             gap: 8px;
             text-decoration: none;
             transition: all 0.3s ease;
+            white-space: nowrap;
         }
 
         .btn-export:hover {
@@ -333,7 +357,6 @@
 
         .modern-card-body {
             padding: 0;
-            /* Table will fill the body */
         }
 
         /* Modern Data Table */
@@ -349,7 +372,6 @@
             padding: 18px 30px;
             text-align: left;
             border-bottom: 1px solid #edf2f7;
-            /* Light horizontal lines */
         }
 
         .modern-data-table th {
@@ -363,12 +385,10 @@
 
         .modern-data-table tbody tr:hover {
             background-color: #f0f4f8;
-            /* Subtle hover effect */
         }
 
         .modern-data-table tbody tr:last-child td {
             border-bottom: none;
-            /* No border for last row */
         }
 
         .profile-meta {
@@ -396,16 +416,12 @@
 
         .modern-badge.success {
             background-color: #d1fae5;
-            /* Light green */
             color: #065f46;
-            /* Darker green text */
         }
 
         .modern-badge.warning {
             background-color: #fef3c7;
-            /* Light yellow */
             color: #92400e;
-            /* Darker yellow/orange text */
         }
 
         /* Action Buttons */
@@ -429,7 +445,6 @@
             border-radius: 6px;
             transition: all 0.2s ease;
             position: relative;
-            /* For tooltip */
         }
 
         .action-icon-btn:hover {
@@ -447,7 +462,6 @@
             content: attr(data-tooltip);
             position: absolute;
             bottom: 120%;
-            /* Position above the button */
             left: 50%;
             transform: translateX(-50%);
             background-color: #334155;
@@ -500,7 +514,6 @@
             height: 14px !important;
         }
 
-        /* Override Laravel default pagination styles */
         .pagination-controls nav svg {
             width: 14px !important;
             height: 14px !important;
@@ -572,8 +585,8 @@
             }
 
             .search-box {
-                max-width: none;
                 width: 100%;
+                max-width: none;
             }
 
             .btn-export {
@@ -598,7 +611,6 @@
         }
 
         @media (max-width: 480px) {
-
             .modern-data-table th,
             .modern-data-table td {
                 font-size: 0.85rem;

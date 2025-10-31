@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SurveyController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WebAuthController;
@@ -18,30 +19,37 @@ Route::middleware('auth')->group(function () {
         return "Dashboard Mahasiswa";
     })->name('mahasiswa.dashboard');
 
-Route::resource('/admin/data-mahasiswa', UserController::class)
-    ->names([
-        'index' => 'admin.user',
-        'create' => 'admin.user.create',
-        'store' => 'admin.user.store',
-        'show' => 'admin.user.show',
-        'edit' => 'admin.user.edit',
-        'update' => 'admin.user.update',
-        'destroy' => 'admin.user.destroy',
-    ]);
+    Route::resource('/admin/data-mahasiswa', UserController::class)
+        ->names([
+            'index' => 'admin.user',
+            'create' => 'admin.user.create',
+            'store' => 'admin.user.store',
+            'show' => 'admin.user.show',
+            'edit' => 'admin.user.edit',
+            'update' => 'admin.user.update',
+            'destroy' => 'admin.user.destroy',
+        ]);
 
-    Route::get('/admin/data-survey', function () {
-        // Mengarahkan ke view: resources/views/admin/user.blade.php
-        return view('admin.survey'); 
-    })->name('admin.survey');
+    Route::resource('/admin/data-survey', SurveyController::class)
+        ->names([
+            'index' => 'admin.survey',
+            'create' => 'admin.survey.create',
+            'store' => 'admin.survey.store',
+            'show' => 'admin.survey.show',
+            'edit' => 'admin.survey.edit',
+            'update' => 'admin.survey.update',
+            'destroy' => 'admin.survey.destroy',
+        ]);
+
 
     Route::get('/admin/data-laporan', function () {
         // Mengarahkan ke view: resources/views/admin/user.blade.php
-        return view('admin.laporan'); 
+        return view('admin.laporan');
     })->name('admin.laporan');
-    
+
     Route::get('/admin/data-hasil', function () {
         // Mengarahkan ke view: resources/views/admin/user.blade.php
-        return view('admin.hasil'); 
+        return view('admin.hasil');
     })->name('admin.hasil');
 });
 

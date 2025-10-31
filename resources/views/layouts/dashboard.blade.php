@@ -454,13 +454,13 @@
             </a>
 
             <a href="{{ route('admin.user') }}" 
-            class="{{ request()->routeIs('admin.user') ? 'active' : '' }}">
+            class="{{ request()->routeIs('admin.user*') ? 'active' : '' }}">
                 <i class="fas fa-users"></i>
                 <span>Data User</span>
             </a>
 
             <a href="{{ route('admin.survey') }}" 
-            class="{{ request()->routeIs('admin.survey') ? 'active' : '' }}">
+            class="{{ request()->routeIs('admin.survey*') ? 'active' : '' }}">
                 <i class="fas fa-clipboard-list"></i>
                 <span>Data Survey</span>
             </a>

@@ -12,10 +12,24 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {   //Mengambil data user saja
+    public function index(Request $request)
+    {
+
+
+        $search = $request->input('search');
+
+        // Gabungkan query pencarian dan filter role dalam satu query
         $data = User::whereIn('role', ['mahasiswa', 'dosen'])
-            ->paginate(10); // <= tampilkan 10 data per halaman
+            ->when($search, function ($query) use ($search) {
+                return $query->where(function ($q) use ($search) {
+                    $q->where('nama', 'like', '%' . $search . '%')
+                        ->orWhere('nim', 'like', '%' . $search . '%')
+                        ->orWhere('email', 'like', '%' . $search . '%')
+                        ->orWhere('jurusan', 'like', '%' . $search . '%');
+                });
+            })
+            ->paginate(10)
+            ->appends(['search' => $search]);
 
         return view('admin.user', compact('data'));
     }
@@ -90,7 +104,7 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-     
+
         $user = User::findOrFail($id);
 
         // Validasi input
