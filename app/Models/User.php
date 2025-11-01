@@ -46,6 +46,11 @@ class User extends Authenticatable
         });
     }
 
+    public function getRouteKeyName()
+    {
+        return 'uuid';
+    }
+
     public function responses()
     {
         return $this->hasMany(Response::class);
