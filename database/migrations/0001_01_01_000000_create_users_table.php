@@ -20,6 +20,7 @@ return new class extends Migration
             $table->date('tanggal_lahir');
             $table->string('jurusan')->nullable();
             $table->string('password');
+            $table->string('remember_token', 100)->nullable();
             $table->enum('role', ['admin', 'mahasiswa'])->default('mahasiswa');
             $table->timestamps();
         });

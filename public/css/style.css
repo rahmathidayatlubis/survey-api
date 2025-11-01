@@ -1,0 +1,830 @@
+/* ==========================================
+   RESET & BASE STYLES
+   ========================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 40%, #3b82f6 70%, #f59e0b 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* ==========================================
+   BACKGROUND DECORATIONS
+   ========================================== */
+.background-decoration {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.circle {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.1;
+}
+
+.circle-1 {
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, #f59e0b, transparent);
+    top: -300px;
+    right: -200px;
+    animation: float 8s ease-in-out infinite;
+}
+
+.circle-2 {
+    width: 450px;
+    height: 450px;
+    background: radial-gradient(circle, #3b82f6, transparent);
+    bottom: -200px;
+    left: -150px;
+    animation: float 10s ease-in-out infinite reverse;
+}
+
+.circle-3 {
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, #60a5fa, transparent);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: pulse 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(30px) rotate(5deg);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.1;
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.2);
+        opacity: 0.15;
+    }
+}
+
+/* ==========================================
+   MAIN CONTAINER
+   ========================================== */
+.login-wrapper {
+    width: 100%;
+    max-width: 420px;
+    position: relative;
+    z-index: 1;
+}
+
+.login-container {
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    box-shadow: 
+        0 25px 50px rgba(0, 0, 0, 0.25),
+        0 0 0 1px rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+    animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ==========================================
+   BRAND SECTION (LEFT SIDE)
+   ========================================== */
+.brand-section {
+    background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+    padding: 30px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.brand-section::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #f59e0b 0%, #fbbf24 100%);
+}
+
+.brand-section::after {
+    content: '';
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, rgba(245, 158, 11, 0.15), transparent);
+    border-radius: 50%;
+}
+
+.brand-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+}
+
+.logo-container {
+    width: 75px;
+    height: 75px;
+    min-width: 75px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 
+        0 10px 25px rgba(0, 0, 0, 0.2),
+        0 0 0 4px rgba(245, 158, 11, 0.3);
+    border: 3px solid #f59e0b;
+    position: relative;
+}
+
+.logo-container img {
+    width: 55px;
+    height: 55px;
+    object-fit: contain;
+}
+
+.logo-placeholder {
+    width: 55px;
+    height: 55px;
+    background: linear-gradient(135deg, #3b82f6, #f59e0b);
+    border-radius: 50%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.brand-text {
+    flex: 1;
+}
+
+.brand-text h1 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    letter-spacing: -0.5px;
+}
+
+.brand-subtitle {
+    font-size: 13px;
+    opacity: 0.95;
+    font-weight: 400;
+}
+
+.brand-tagline {
+    margin-top: 8px;
+    font-size: 13px;
+    opacity: 0.9;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+}
+
+.dot {
+    width: 6px;
+    height: 6px;
+    background: #fbbf24;
+    border-radius: 50%;
+    display: inline-block;
+    animation: blink 2s ease-in-out infinite;
+}
+
+@keyframes blink {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.4;
+    }
+}
+
+.brand-features {
+    display: none;
+}
+
+/* ==========================================
+   FORM SECTION (RIGHT SIDE)
+   ========================================== */
+.form-section {
+    padding: 45px 35px;
+    background: white;
+}
+
+.form-content {
+    width: 100%;
+}
+
+.form-header {
+    margin-bottom: 35px;
+    text-align: left;
+}
+
+.form-header h2 {
+    font-size: 26px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+}
+
+.form-header p {
+    font-size: 14px;
+    color: #64748b;
+    font-weight: 400;
+}
+
+/* ==========================================
+   FORM ELEMENTS
+   ========================================== */
+.login-form {
+    width: 100%;
+}
+
+.form-group {
+    margin-bottom: 24px;
+}
+
+.form-group label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    color: #1e293b;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.label-icon {
+    font-size: 16px;
+}
+
+.input-group {
+    position: relative;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 14px 18px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 15px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    outline: none;
+    background: #f8fafc;
+    font-weight: 400;
+}
+
+.input-group input:hover {
+    border-color: #cbd5e1;
+    background: white;
+}
+
+.input-group input:focus {
+    border-color: #3b82f6;
+    background: white;
+    box-shadow: 
+        0 0 0 4px rgba(59, 130, 246, 0.1),
+        0 1px 2px rgba(0, 0, 0, 0.05);
+    transform: translateY(-1px);
+}
+
+.input-group input::placeholder {
+    color: #94a3b8;
+}
+
+/* ==========================================
+   FORM OPTIONS
+   ========================================== */
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+    font-size: 14px;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    color: #475569;
+    font-weight: 500;
+}
+
+.remember-me input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: #3b82f6;
+}
+
+.forgot-link {
+    color: #3b82f6;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+.forgot-link:hover {
+    color: #2563eb;
+    text-decoration: underline;
+}
+
+/* ==========================================
+   BUTTONS
+   ========================================== */
+.btn-login {
+    width: 100%;
+    padding: 16px 24px;
+    background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 
+        0 4px 12px rgba(30, 58, 138, 0.3),
+        0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-login::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn-login:hover::before {
+    left: 100%;
+}
+
+.btn-login:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+        0 8px 20px rgba(30, 58, 138, 0.4),
+        0 4px 8px rgba(0, 0, 0, 0.15);
+    background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
+}
+
+.btn-login:active {
+    transform: translateY(0);
+    box-shadow: 
+        0 2px 8px rgba(30, 58, 138, 0.3),
+        0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.btn-arrow {
+    font-size: 20px;
+    transition: transform 0.3s ease;
+}
+
+.btn-login:hover .btn-arrow {
+    transform: translateX(4px);
+}
+
+/* ==========================================
+   REGISTER LINK
+   ========================================== */
+.register-link {
+    text-align: center;
+    margin-top: 28px;
+    padding-top: 28px;
+    border-top: 1px solid #e2e8f0;
+    color: #64748b;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.register-link a {
+    color: #f59e0b;
+    text-decoration: none;
+    font-weight: 700;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.register-link a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #f59e0b;
+    transition: width 0.3s ease;
+}
+
+.register-link a:hover {
+    color: #d97706;
+}
+
+.register-link a:hover::after {
+    width: 100%;
+}
+
+/* ==========================================
+   DESKTOP LAYOUT (SPLIT SCREEN)
+   ========================================== */
+@media (min-width: 769px) {
+    .login-wrapper {
+        max-width: 950px; /* Lebar Ditetapkan */
+    }
+
+    .login-container {
+        display: flex;
+        min-height: 550px; /* <--- PERUBAHAN: Dikecilkan lagi */
+    }
+
+    /* Brand Section - Left 40% */
+    .brand-section {
+        width: 40%;
+        padding: 30px 30px; /* <--- PERUBAHAN: Padding Vertikal Dikecilkan */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .brand-section::before {
+        display: none;
+    }
+
+    .brand-content {
+        flex-direction: column;
+        text-align: center;
+        max-width: 350px;
+    }
+
+    .logo-container {
+        width: 160px;
+        height: 160px;
+        min-width: 160px;
+        border: 5px solid #f59e0b;
+        box-shadow: 
+            0 20px 40px rgba(0, 0, 0, 0.3),
+            0 0 0 8px rgba(245, 158, 11, 0.2);
+    }
+
+    .logo-container img {
+        width: 110px;
+        height: 110px;
+    }
+
+    .logo-placeholder {
+        width: 110px;
+        height: 110px;
+        font-size: 56px;
+    }
+
+    .brand-text {
+        margin-top: 10px;
+    }
+
+    .brand-text h1 {
+        font-size: 36px;
+        margin-bottom: 8px;
+    }
+
+    .brand-subtitle {
+        font-size: 16px;
+    }
+
+    .brand-tagline {
+        font-size: 15px;
+        margin-top: 12px;
+        justify-content: center;
+    }
+
+    .brand-features {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin-top: 40px;
+        width: 100%;
+    }
+
+    .feature-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 20px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        font-size: 14px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .feature-item:hover {
+        background: rgba(255, 255, 255, 0.15);
+        transform: translateX(5px);
+    }
+
+    .feature-icon {
+        width: 24px;
+        height: 24px;
+        background: rgba(245, 158, 11, 0.9);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        font-weight: 700;
+    }
+
+    /* Form Section - Right 60% */
+    .form-section {
+        width: 60%;
+        padding: 30px 50px; /* <--- PERUBAHAN: Padding Vertikal Dikecilkan */
+        display: flex;
+        align-items: center;
+    }
+    
+    .form-content {
+        /* Tambahkan flex untuk mengatur konten di tengah secara vertikal jika form section tingginya tetap */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .form-header {
+        margin-bottom: 25px; /* <--- PERUBAHAN: Margin header dikurangi dari 35px */
+    }
+
+    .form-header h2 {
+        font-size: 32px;
+    }
+
+    .form-header p {
+        font-size: 15px;
+    }
+}
+
+/* ==========================================
+   TABLET ADJUSTMENTS
+   ========================================== */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .form-section {
+        padding: 40px 45px; /* Sedikit dilonggarkan untuk tablet */
+    }
+
+    .brand-section {
+        padding: 40px 40px; /* Sedikit dilonggarkan untuk tablet */
+    }
+}
+
+/* ==========================================
+   MOBILE LAYOUT
+   ========================================== */
+@media (max-width: 768px) {
+    body {
+        padding: 15px;
+    }
+
+    .login-container {
+        border-radius: 20px;
+    }
+
+    .brand-section {
+        padding: 25px;
+    }
+
+    .brand-content {
+        gap: 18px;
+    }
+
+    .logo-container {
+        width: 65px;
+        height: 65px;
+        min-width: 65px;
+        border: 3px solid #f59e0b;
+    }
+
+    .logo-container img {
+        width: 45px;
+        height: 45px;
+    }
+
+    .logo-placeholder {
+        width: 45px;
+        height: 45px;
+        font-size: 24px;
+    }
+
+    .brand-text h1 {
+        font-size: 20px;
+    }
+
+    .brand-subtitle {
+        font-size: 12px;
+    }
+
+    .brand-tagline {
+        font-size: 12px;
+        margin-top: 6px;
+    }
+
+    .form-section {
+        padding: 35px 25px;
+    }
+
+    .form-header {
+        margin-bottom: 30px;
+    }
+
+    .form-header h2 {
+        font-size: 22px;
+    }
+
+    .form-header p {
+        font-size: 13px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-options {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        margin-bottom: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .brand-text h1 {
+        font-size: 18px;
+    }
+
+    .form-header h2 {
+        font-size: 20px;
+    }
+
+    .input-group input {
+        padding: 12px 16px;
+        font-size: 14px;
+    }
+
+    .btn-login {
+        padding: 14px 20px;
+        font-size: 15px;
+    }
+}
+
+/* ==========================================
+   REGISTER PAGE SPECIFIC STYLES
+   ========================================== */
+
+/* Form Row for Side by Side Inputs */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 0;
+}
+
+.form-row .form-group {
+    margin-bottom: 18px;
+}
+
+/* Checkbox Label */
+.checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+    color: #475569;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    min-width: 18px;
+    margin-top: 2px;
+    cursor: pointer;
+    accent-color: #3b82f6;
+}
+
+.checkbox-label span {
+    flex: 1;
+}
+
+/* Inline Links */
+.link-inline {
+    color: #3b82f6;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+.link-inline:hover {
+    color: #2563eb;
+    text-decoration: underline;
+}
+
+/* Register Form Adjustments */
+.register-form .form-group {
+    margin-bottom: 15px; /* <--- PERUBAHAN: Margin dikecilkan lagi dari 16px */
+}
+
+/* Mobile Adjustments for Register */
+@media (max-width: 768px) {
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .form-row .form-group {
+        margin-bottom: 20px;
+    }
+
+    .checkbox-label {
+        font-size: 12px;
+    }
+
+    .checkbox-label input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+        min-width: 16px;
+    }
+}
+
+/* Desktop Register Form Height Adjustment */
+@media (min-width: 769px) {
+    .register-form .login-container {
+        min-height: 550px; /* <--- PERUBAHAN: Disamakan dengan login-container standar */
+    }
+
+    .register-form .form-section {
+        padding: 25px 50px; /* <--- PERUBAHAN: Padding Vertikal Dikecilkan lagi */
+    }
+    
+    .register-form .form-header {
+        margin-bottom: 20px; /* <--- PERUBAHAN: Margin header form register dikurangi lagi */
+    }
+    
+    .register-form .register-link {
+        margin-top: 20px; /* <--- PERUBAHAN: Margin link register dikurangi dari 28px */
+        padding-top: 20px; /* <--- PERUBAHAN: Padding link register dikurangi dari 28px */
+    }
+}

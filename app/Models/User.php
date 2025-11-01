@@ -32,7 +32,6 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
             'tanggal_lahir' => 'date',
         ];
     }
@@ -45,6 +44,11 @@ class User extends Authenticatable
                 $model->uuid = (string) Str::uuid();
             }
         });
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'uuid';
     }
 
     public function responses()
